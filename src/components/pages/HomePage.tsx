@@ -11,12 +11,18 @@ import { EnquireButton } from '@/components/EnquireButton';
 import { Marquee } from '@/components/Marquee';
 
 export function HomePage({ locale }: { locale: Locale }) {
-  // One decisive piece per category for the stage, so the slider shows range rather
-  // than five sofas.
+  // One decisive piece per category, so the stage shows range rather than five sofas.
+  //
+  // These indices are not arbitrary. The backdrop key (scripts/lib-cutout.mjs) cannot
+  // reach backdrop that sits in shadow inside a tight gap, so a few plates keep small
+  // pale patches where a chair frame or a table apron encloses one. Harmless in a
+  // catalogue tile; not harmless on the hero. These were picked by scoring every
+  // candidate for leftover near-white and taking the cleanest: the previous table pick
+  // measured 12% leftover, this one measures 0.3%.
   const stage = [
     photosFor('sofa')[1],
-    photosFor('kursi')[9],
-    photosFor('meja')[6],
+    photosFor('kursi')[13],
+    photosFor('meja')[2],
     photosFor('almari')[3],
     photosFor('bed')[2],
   ].filter(Boolean);
