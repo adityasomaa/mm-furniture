@@ -1,0 +1,37 @@
+# dependencies
+/node_modules
+/.pnp
+.pnp.*
+
+# next
+/.next/
+/out/
+next-env.d.ts
+
+# production
+/build
+
+# asset migration cache: originals pulled from the legacy WordPress install.
+# The derived AVIF/WebP in public/catalog IS committed; these originals are not,
+# because they are ~90MB of unoptimised JPEG that the build never reads.
+/.cache
+
+# scratch from the migration
+/home.html
+/catalog_imgs.json
+
+# misc
+.DS_Store
+*.pem
+.vercel
+.env*
+!.env.example
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# typescript
+*.tsbuildinfo
