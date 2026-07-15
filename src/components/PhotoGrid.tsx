@@ -82,9 +82,13 @@ export function PhotoGrid({
           return (
             <li
               key={p.slug}
-              className={`group relative aspect-square overflow-hidden border border-bone-hair/70 bg-bone-shade ${
+              className={`group relative aspect-square overflow-hidden rounded-md border border-linen/70 bg-shell ${
                 feature ? 'col-span-2 row-span-2' : ''
               }`}
+              style={{
+                backgroundImage:
+                  'radial-gradient(125% 95% at 50% 112%, oklch(0.86 0.018 35) 0%, transparent 62%)',
+              }}
             >
               <button
                 type="button"
@@ -101,11 +105,11 @@ export function PhotoGrid({
                       : '(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw'
                   }
                   priority={i < 4}
-                  className="object-cover transition-transform duration-700 ease-[cubic-bezier(0.165,0.84,0.44,1)] group-hover:scale-[1.04]"
+                  className="scale-[0.88] object-contain transition-transform duration-700 ease-[cubic-bezier(0.165,0.84,0.44,1)] group-hover:scale-[0.95]"
                 />
               </button>
 
-              <span className="pointer-events-none absolute bottom-0 left-0 bg-ink-deep/85 px-2 py-1 text-[0.6rem] font-semibold tracking-[0.12em] text-bone opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+              <span className="pointer-events-none absolute bottom-0 left-0 bg-espresso/85 px-2 py-1 text-[0.6rem] font-semibold tracking-[0.12em] text-paper opacity-0 transition-opacity duration-300 group-hover:opacity-100">
                 {String(i + 1).padStart(3, '0')}
               </span>
             </li>
@@ -119,12 +123,12 @@ export function PhotoGrid({
         onClick={(e) => {
           if (e.target === dialogRef.current) hide();
         }}
-        className="m-0 h-full max-h-none w-full max-w-none bg-ink-deep/96 p-0 backdrop:bg-ink-deep/80"
+        className="m-0 h-full max-h-none w-full max-w-none bg-espresso/96 p-0 backdrop:bg-espresso/80"
       >
         {active && (
           <div className="flex h-full w-full flex-col">
             <div className="flex shrink-0 items-center justify-between gap-4 px-4 py-3 sm:px-6">
-              <span className="tag text-copper">
+              <span className="tag text-brand">
                 {label} · {String((open ?? 0) + 1).padStart(3, '0')} / {photos.length}
               </span>
               <div className="flex items-center gap-2">
@@ -132,14 +136,14 @@ export function PhotoGrid({
                   href={waHref(open ?? 0)}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="tag bg-copper px-3 py-2 text-ink-deep hover:bg-bone"
+                  className="tag rounded-full bg-brand px-3 py-2 text-espresso hover:bg-paper"
                 >
                   WhatsApp
                 </a>
                 <button
                   type="button"
                   onClick={hide}
-                  className="tag border border-ink-hair px-3 py-2 text-bone hover:border-copper hover:text-copper"
+                  className="tag rounded-full border border-linen px-3 py-2 text-paper hover:border-brand hover:text-brand"
                   aria-label={locale === 'id' ? 'Tutup' : 'Close'}
                 >
                   ✕
@@ -162,7 +166,7 @@ export function PhotoGrid({
               <button
                 type="button"
                 onClick={() => step(-1)}
-                className="tag border border-ink-hair px-5 py-2.5 text-bone hover:border-copper hover:text-copper"
+                className="tag rounded-full border border-linen px-5 py-2.5 text-paper hover:border-brand hover:text-brand"
                 aria-label={locale === 'id' ? 'Sebelumnya' : 'Previous'}
               >
                 ←
@@ -170,7 +174,7 @@ export function PhotoGrid({
               <button
                 type="button"
                 onClick={() => step(1)}
-                className="tag border border-ink-hair px-5 py-2.5 text-bone hover:border-copper hover:text-copper"
+                className="tag rounded-full border border-linen px-5 py-2.5 text-paper hover:border-brand hover:text-brand"
                 aria-label={locale === 'id' ? 'Berikutnya' : 'Next'}
               >
                 →

@@ -1,6 +1,6 @@
 import { company, locations, categories, absoluteUrl, localePath, type Locale } from './site';
 import { faq } from './content';
-import { photoUrl, coverFor, type Photo } from './photos';
+import { photoUrl, coverFor, photosFor, type Photo } from './photos';
 
 /**
  * Representative image for the business.
@@ -162,6 +162,41 @@ export const categoryListNode = (locale: Locale, slug: string, label: string, ph
     })),
   },
 });
+
+/**
+ * Blog post node.
+ *
+ * `author` and `publisher` both point at the organisation rather than a person: these
+ * are workshop notes written in the company's voice, and inventing a named byline for
+ * them would be fabricating a person.
+ */
+export const articleNode = (
+  locale: Locale,
+  post: {
+    slug: string;
+    date: string;
+    title: Record<Locale, string>;
+    excerpt: Record<Locale, string>;
+    cover: { cat: string; index: number };
+  },
+) => {
+  const cover = photosFor(post.cover.cat)[post.cover.index] ?? photosFor(post.cover.cat)[0];
+  const path = localePath(locale, `blog/${post.slug}`);
+  return {
+    '@type': 'BlogPosting',
+    '@id': absoluteUrl(`${path}#article`),
+    headline: post.title[locale],
+    description: post.excerpt[locale],
+    datePublished: post.date,
+    dateModified: post.date,
+    inLanguage: locale === 'id' ? 'id-ID' : 'en',
+    author: { '@id': ORG_ID },
+    publisher: { '@id': ORG_ID },
+    isPartOf: { '@id': SITE_ID },
+    mainEntityOfPage: absoluteUrl(path),
+    image: cover ? absoluteUrl(photoUrl(cover, 1400)) : businessImage(),
+  };
+};
 
 /** Serialises one connected graph. `<` is escaped so the payload can never break out
  *  of the surrounding <script> tag. Rendered by `@/components/JsonLd`. */

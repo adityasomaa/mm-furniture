@@ -9,10 +9,26 @@ import type { Locale } from './site';
  */
 export type L<T = string> = Record<Locale, T>;
 
-export const nav: { href: L; label: L }[] = [
-  { href: { id: '/catalog', en: '/en/catalog' }, label: { id: 'Katalog', en: 'Catalogue' } },
-  { href: { id: '/about', en: '/en/about' }, label: { id: 'Tentang', en: 'About' } },
-  { href: { id: '/contact', en: '/en/contact' }, label: { id: 'Kontak', en: 'Contact' } },
+export const nav: { key: string; href: L; label: L }[] = [
+  { key: 'home', href: { id: '/', en: '/en' }, label: { id: 'Beranda', en: 'Home' } },
+  { key: 'about', href: { id: '/about', en: '/en/about' }, label: { id: 'Tentang', en: 'About' } },
+  { key: 'catalog', href: { id: '/catalog', en: '/en/catalog' }, label: { id: 'Katalog', en: 'Catalogue' } },
+  { key: 'blog', href: { id: '/blog', en: '/en/blog' }, label: { id: 'Blog', en: 'Blog' } },
+  { key: 'contact', href: { id: '/contact', en: '/en/contact' }, label: { id: 'Kontak', en: 'Contact' } },
+];
+
+/** Footer-only routes. Kept out of `nav` so the header stays to five links. */
+export const legalNav: { key: string; href: L; label: L }[] = [
+  {
+    key: 'privacy',
+    href: { id: '/privacy', en: '/en/privacy' },
+    label: { id: 'Kebijakan Privasi', en: 'Privacy Policy' },
+  },
+  {
+    key: 'terms',
+    href: { id: '/terms', en: '/en/terms' },
+    label: { id: 'Ketentuan Hukum', en: 'Legal Terms' },
+  },
 ];
 
 export const ui = {
@@ -28,6 +44,8 @@ export const ui = {
   languageLabel: { id: 'Bahasa', en: 'Language' },
   askAboutThis: { id: 'Tanya soal item ini', en: 'Ask about this piece' },
   openInMaps: { id: 'Buka di Maps', en: 'Open in Maps' },
+  enquire: { id: 'Enquire', en: 'Enquire' },
+  loading: { id: 'Memuat', en: 'Loading' },
 } satisfies Record<string, L>;
 
 export const home = {

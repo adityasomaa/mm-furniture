@@ -1,7 +1,7 @@
 import { company, locations, type Locale } from '@/lib/site';
 import { about } from '@/lib/content';
 import { coverFor, totalPhotos } from '@/lib/photos';
-import { Shell, Section, Kicker } from '@/components/Shell';
+import { Section, Kicker } from '@/components/Shell';
 import { Faq } from '@/components/Faq';
 import { CatalogImage } from '@/components/CatalogImage';
 
@@ -9,17 +9,17 @@ export function AboutPage({ locale }: { locale: Locale }) {
   const shot = coverFor('meja') ?? coverFor('kursi');
 
   return (
-    <Shell locale={locale}>
-      <Section tone="ink" className="!pb-0">
+    <>
+      <Section tone="dark" className="!pb-0">
         <div className="grid gap-10 lg:grid-cols-[1.2fr_1fr] lg:gap-20">
           <div>
-            <Kicker onInk>{company.tagline[locale]}</Kicker>
-            <h1 className="stencil mt-6 max-w-[16ch] text-display text-bone">{about.title[locale]}</h1>
+            <Kicker onDark>{company.tagline[locale]}</Kicker>
+            <h1 className="mt-6 max-w-[16ch] text-display text-paper">{about.title[locale]}</h1>
           </div>
-          <p className="prose-body self-end text-lede text-muted-on-ink">{about.lede[locale]}</p>
+          <p className="prose-body self-end text-lede text-sand">{about.lede[locale]}</p>
         </div>
 
-        <div className="relative mt-16 aspect-[16/7] w-full overflow-hidden">
+        <div className="relative mt-16 aspect-[16/7] w-full overflow-hidden rounded-2xl bg-shell">
           {shot && (
             <CatalogImage
               photo={shot}
@@ -30,13 +30,13 @@ export function AboutPage({ locale }: { locale: Locale }) {
               }
               sizes="100vw"
               priority
-              className="object-cover"
+              className="scale-90 object-contain"
             />
           )}
         </div>
       </Section>
 
-      <Section tone="bone">
+      <Section tone="paper">
         <div className="grid gap-8 lg:grid-cols-[minmax(0,24rem)_1fr] lg:gap-20">
           <div>
             <Kicker>{about.bodyTitle[locale]}</Kicker>
@@ -44,10 +44,10 @@ export function AboutPage({ locale }: { locale: Locale }) {
 
           <dl className="grid gap-x-12 gap-y-8 sm:grid-cols-2">
             {about.values[locale].map((v, i) => (
-              <div key={v.k} className="reveal border-t border-bone-hair pt-5">
-                <span className="tag text-copper-deep">{String(i + 1).padStart(2, '0')}</span>
-                <dt className="stencil mt-2 text-head text-ink">{v.k}</dt>
-                <dd className="mt-2 text-[0.97rem] leading-relaxed text-muted">{v.v}</dd>
+              <div key={v.k} className="reveal border-t border-linen pt-5">
+                <span className="tag text-brand">{String(i + 1).padStart(2, '0')}</span>
+                <dt className="mt-2 text-head text-espresso">{v.k}</dt>
+                <dd className="mt-2 text-[0.97rem] leading-relaxed text-clay">{v.v}</dd>
               </div>
             ))}
           </dl>
@@ -56,7 +56,7 @@ export function AboutPage({ locale }: { locale: Locale }) {
 
       {/* Facts, stated only where they are verifiable. No invented years,
           headcounts, or project totals: see PRODUCT.md > [UNVERIFIED]. */}
-      <Section tone="bone-shade">
+      <Section tone="shell">
         <dl className="grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
           {[
             {
@@ -80,20 +80,20 @@ export function AboutPage({ locale }: { locale: Locale }) {
               d: locale === 'id' ? 'Indonesia dan Inggris' : 'Indonesian and English',
             },
           ].map((f) => (
-            <div key={f.k} className="border-t border-copper-deep/30 pt-5">
-              <dt className="tag text-muted">{f.k}</dt>
-              <dd className="stencil mt-3 text-5xl text-ink">{f.v}</dd>
-              <p className="mt-2 text-sm text-muted">{f.d}</p>
+            <div key={f.k} className="border-t border-brand/30 pt-5">
+              <dt className="tag text-clay">{f.k}</dt>
+              <dd className="mt-3 text-5xl text-espresso">{f.v}</dd>
+              <p className="mt-2 text-sm text-clay">{f.d}</p>
             </div>
           ))}
         </dl>
       </Section>
 
-      <Section tone="bone">
+      <Section tone="paper">
         <Faq locale={locale} />
       </Section>
 
-      <Section tone="ink">
+      <Section tone="dark">
         <div className="grid gap-3 sm:grid-cols-2">
           {locations.map((loc) => (
             <a
@@ -101,17 +101,17 @@ export function AboutPage({ locale }: { locale: Locale }) {
               href={loc.maps}
               target="_blank"
               rel="noopener noreferrer"
-              className="group border border-ink-hair p-8 transition-colors duration-300 hover:border-copper"
+              className="group rounded-xl border border-linen p-8 transition-colors duration-300 hover:border-brand"
             >
-              <span className="tag text-copper">{loc.role[locale]}</span>
-              <address className="stencil mt-4 text-head not-italic text-bone">{loc.street}</address>
-              <p className="mt-2 text-[0.97rem] text-muted-on-ink">
+              <span className="tag text-brand">{loc.role[locale]}</span>
+              <address className="mt-4 text-head not-italic text-paper">{loc.street}</address>
+              <p className="mt-2 text-[0.97rem] text-sand">
                 {loc.locality}, {loc.region}
               </p>
             </a>
           ))}
         </div>
       </Section>
-    </Shell>
+    </>
   );
 }

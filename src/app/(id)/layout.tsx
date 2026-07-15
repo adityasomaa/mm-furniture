@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from 'next';
 import '../globals.css';
 import { RootHtml } from '@/components/RootHtml';
+import { AppChrome } from '@/components/AppChrome';
+import { SiteFooter } from '@/components/SiteFooter';
 import { SITE_URL, company } from '@/lib/site';
 import { home } from '@/lib/content';
 
@@ -25,10 +27,16 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: '#1f3236',
+  themeColor: '#fcf9f9',
   colorScheme: 'light',
 };
 
 export default function IdRootLayout({ children }: { children: React.ReactNode }) {
-  return <RootHtml locale="id">{children}</RootHtml>;
+  return (
+    <RootHtml locale="id">
+      <AppChrome locale="id" footer={<SiteFooter locale="id" />}>
+        {children}
+      </AppChrome>
+    </RootHtml>
+  );
 }

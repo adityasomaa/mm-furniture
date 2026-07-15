@@ -1,32 +1,32 @@
-import Link from 'next/link';
+import { TransitionLink } from '@/components/transition/TransitionLink';
 import { localePath } from '@/lib/site';
-import { Shell, Section, Kicker } from '@/components/Shell';
+import { Section, Kicker } from '@/components/Shell';
 
 export default function NotFound() {
   return (
-    <Shell locale="id">
-      <Section tone="ink" className="!py-32">
-        <Kicker onInk>404</Kicker>
-        <h1 className="stencil mt-6 max-w-[16ch] text-display text-bone">Halaman ini tidak ada.</h1>
-        <p className="prose-body mt-6 text-lede text-muted-on-ink">
+    <>
+      <Section tone="dark" className="!py-32">
+        <Kicker onDark>404</Kicker>
+        <h1 className="mt-6 max-w-[16ch] text-display text-paper">Halaman ini tidak ada.</h1>
+        <p className="prose-body mt-6 text-lede text-sand">
           Mungkin alamatnya salah ketik, atau halamannya sudah pindah waktu situs ini dibangun ulang.
           Katalognya ada di bawah.
         </p>
         <div className="mt-10 flex flex-wrap gap-3">
-          <Link
+          <TransitionLink
             href={localePath('id', 'catalog')}
-            className="tag bg-copper px-7 py-4 text-ink-deep transition-colors duration-200 hover:bg-bone"
+            className="tag bg-brand px-7 py-4 text-espresso transition-colors duration-200 hover:bg-paper"
           >
             Lihat katalog
-          </Link>
-          <Link
+          </TransitionLink>
+          <TransitionLink
             href={localePath('id')}
-            className="tag border border-ink-hair px-7 py-4 text-bone transition-colors duration-200 hover:border-copper hover:text-copper"
+            className="tag border border-linen px-7 py-4 text-paper transition-colors duration-200 hover:border-brand hover:text-brand"
           >
             Beranda
-          </Link>
+          </TransitionLink>
         </div>
       </Section>
-    </Shell>
+    </>
   );
 }

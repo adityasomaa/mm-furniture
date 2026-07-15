@@ -8,9 +8,11 @@ import type { Photo } from '@/lib/photos';
  * already have on disk. This ships plain <picture> with AVIF first, WebP fallback, and
  * a real srcset, which the browser resolves against `sizes` without any JavaScript.
  *
- * The blur placeholder is a CSS background rather than a swapped <img>: the LQIP paints
- * immediately, the real photo is opaque and covers it on decode, and nothing needs to
- * hydrate for that to happen.
+ * `showBlur` is off by default. The plates carry alpha now (the studio backdrop is keyed
+ * out at build time), so a blur placeholder painted behind one would stay visible
+ * through every transparent region instead of being covered on decode: you would see a
+ * smeared ghost around the furniture forever. The intrinsic width/height still reserve
+ * the space, so nothing shifts. Only pass `showBlur` for an image known to be opaque.
  */
 export function CatalogImage({
   photo,
@@ -19,6 +21,7 @@ export function CatalogImage({
   priority = false,
   className = '',
   fill = true,
+  showBlur = false,
 }: {
   photo: Photo;
   alt: string;
@@ -26,6 +29,7 @@ export function CatalogImage({
   priority?: boolean;
   className?: string;
   fill?: boolean;
+  showBlur?: boolean;
 }) {
   const widths = photo.widths?.length ? photo.widths : [photo.w];
   const srcset = (ext: 'avif' | 'webp') =>
@@ -47,11 +51,15 @@ export function CatalogImage({
         decoding={priority ? 'sync' : 'async'}
         fetchPriority={priority ? 'high' : 'auto'}
         className={`${fill ? 'absolute inset-0 h-full w-full' : ''} ${className}`}
-        style={{
-          backgroundImage: `url(${photo.blur})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-        }}
+        style={
+          showBlur
+            ? {
+                backgroundImage: `url(${photo.blur})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+              }
+            : undefined
+        }
       />
     </picture>
   );

@@ -45,6 +45,14 @@ async function fingerprint(file) {
   return bits;
 }
 
+/**
+ * Brand assets that live in the same uploads folder as the product shots.
+ * `MM-Furniture-01` is the logo card, and the legacy install dropped it into all seven
+ * category galleries, so it survived as a "product" until it was spotted by eye. A
+ * gallery of furniture should contain furniture.
+ */
+const NOT_A_PRODUCT = /mm-furniture-\d|mmfurniture|logo|banner|watermark/i;
+
 const manifest = JSON.parse(await readFile(path.join(ROOT, 'catalog_imgs.json'), 'utf8'));
 await mkdir(RAW, { recursive: true });
 await mkdir(OUT, { recursive: true });
@@ -57,6 +65,10 @@ for (const [cat, urls] of Object.entries(manifest)) {
   out[cat] = [];
   for (const url of urls) {
     const file = path.basename(url);
+    if (NOT_A_PRODUCT.test(file)) {
+      console.log('SKIP brand asset:', file);
+      continue;
+    }
     const base = file.replace(/\.[^.]+$/, '');
     const raw = path.join(RAW, file);
 

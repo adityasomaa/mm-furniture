@@ -12,28 +12,31 @@ export const ogAlt = `${company.name} — ${company.tagline.en}`;
  *
  * This lives in lib rather than app because `opengraph-image.tsx` only attaches to the
  * route segment it sits in. With two root layouts there is no shared segment above
- * `(id)` and `(en)`, so a single file at the app root attaches to neither, and every
- * page ships without an og:image. Each group gets a thin `opengraph-image.tsx` that
- * re-exports this instead.
+ * `(id)` and `(en)`, so a single file at the app root attaches to neither and every page
+ * ships without an og:image. Each group gets a thin `opengraph-image.tsx` re-exporting
+ * this instead.
  *
  * next/og runs Satori, which resolves neither CSS custom properties nor OKLCH, so the
- * tokens from globals.css are restated as literal sRGB. These are exact conversions of
- * the same values: ink oklch(0.26 0.028 212), copper oklch(0.70 0.115 45),
- * bone oklch(0.965 0.006 75), muted oklch(0.74 0.018 212).
+ * tokens from globals.css are restated as literal sRGB. Exact conversions of the same
+ * values: espresso oklch(0.24 0.03 35), brand oklch(0.386 0.051 35),
+ * sand oklch(0.66 0.038 35), paper oklch(0.985 0.003 35).
+ *
+ * Satori also has no `ch` unit and will not shrink text to fit, so the headline width is
+ * pinned in px and sized against the longer of the two languages.
  */
 export async function renderOgCard(locale: 'id' | 'en') {
   const [mono, font] = await Promise.all([
     readFile(path.join(process.cwd(), 'public', 'brand', 'monogram.svg'), 'utf8'),
-    readFile(path.join(process.cwd(), 'public', 'brand', 'archivo-800.ttf')),
+    readFile(path.join(process.cwd(), 'public', 'brand', 'urbanist-500.ttf')),
   ]);
 
-  const INK = '#13282c';
-  const COPPER = '#d98660';
-  const BONE = '#f6f3ef';
-  const MUTED = '#9faeb1';
+  const ESPRESSO = '#2c1a15';
+  const BRAND = '#5c3a31';
+  const SAND = '#a88a83';
+  const PAPER = '#fcf9f9';
 
   const monoDataUri = `data:image/svg+xml;base64,${Buffer.from(
-    mono.replace(/currentColor/g, COPPER),
+    mono.replace(/currentColor/g, SAND),
   ).toString('base64')}`;
 
   const headline =
@@ -50,29 +53,26 @@ export async function renderOgCard(locale: 'id' | 'en') {
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'space-between',
-          background: INK,
+          background: ESPRESSO,
           padding: 72,
-          fontFamily: 'Archivo',
+          fontFamily: 'Urbanist',
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: 28 }}>
-          <img src={monoDataUri} width={96} height={96} alt="" />
+          <img src={monoDataUri} width={92} height={92} alt="" />
           <div style={{ display: 'flex', flexDirection: 'column' }}>
-            <span style={{ color: BONE, fontSize: 46, letterSpacing: '-0.01em' }}>MM FURNITURE</span>
-            <span style={{ color: COPPER, fontSize: 19, letterSpacing: '0.24em', marginTop: 6 }}>
+            <span style={{ color: PAPER, fontSize: 42, letterSpacing: '0.04em' }}>MM FURNITURE</span>
+            <span style={{ color: SAND, fontSize: 17, letterSpacing: '0.3em', marginTop: 8 }}>
               GLOBALINDO
             </span>
           </div>
         </div>
 
-        {/* Satori has no `ch` unit and does not shrink text to fit, so the width is
-            pinned in px and the size is set to what actually fits the longer of the two
-            headlines (the Indonesian one). */}
         <span
           style={{
-            color: BONE,
+            color: PAPER,
             fontSize: 62,
-            lineHeight: 1.05,
+            lineHeight: 1.08,
             letterSpacing: '-0.03em',
             maxWidth: 880,
             display: 'flex',
@@ -82,10 +82,21 @@ export async function renderOgCard(locale: 'id' | 'en') {
         </span>
 
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-          <span style={{ color: COPPER, fontSize: 21, letterSpacing: '0.16em' }}>
+          <span style={{ color: SAND, fontSize: 20, letterSpacing: '0.18em' }}>
             SOFA · KURSI · MEJA · BED · ALMARI
           </span>
-          <span style={{ color: MUTED, fontSize: 21 }}>Denpasar · Kuta · Bali</span>
+          <span
+            style={{
+              display: 'flex',
+              color: PAPER,
+              fontSize: 18,
+              background: BRAND,
+              padding: '10px 22px',
+              borderRadius: 999,
+            }}
+          >
+            Denpasar · Kuta · Bali
+          </span>
         </div>
       </div>
     ),
@@ -93,9 +104,9 @@ export async function renderOgCard(locale: 'id' | 'en') {
       ...ogSize,
       fonts: [
         {
-          name: 'Archivo',
+          name: 'Urbanist',
           data: font.buffer.slice(font.byteOffset, font.byteOffset + font.byteLength) as ArrayBuffer,
-          weight: 800,
+          weight: 500,
           style: 'normal',
         },
       ],

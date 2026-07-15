@@ -2,22 +2,24 @@
 // Exits non-zero on failure so `npm run build` refuses to ship an unreadable palette,
 // rather than printing a warning nobody reads.
 //
+// This matters more now than it did with the old high-contrast palette: the brief asked
+// for softer, less harsh colour, and "soft" is exactly how a palette drifts under AA
+// without anyone noticing. Softness is allowed to cost contrast right up to the floor
+// and not one step past it.
+//
 // Tokens are duplicated from globals.css on purpose: this script is the independent
 // check. If it imported the same source it was verifying, it would only ever agree
 // with itself.
 
 const TOKENS = {
-  ink: [0.26, 0.028, 212],
-  'ink-deep': [0.19, 0.024, 212],
-  'ink-raised': [0.33, 0.028, 211],
-  'ink-hair': [0.42, 0.026, 211],
-  copper: [0.7, 0.115, 45],
-  'copper-deep': [0.5, 0.1, 40],
-  bone: [0.965, 0.006, 75],
-  'bone-shade': [0.932, 0.009, 72],
-  graphite: [0.3, 0.014, 212],
-  muted: [0.51, 0.014, 212],
-  'muted-on-ink': [0.74, 0.018, 212],
+  espresso: [0.24, 0.03, 35],
+  bark: [0.32, 0.042, 35],
+  brand: [0.386, 0.051, 35],
+  clay: [0.5, 0.048, 35],
+  sand: [0.66, 0.038, 35],
+  linen: [0.86, 0.018, 35],
+  shell: [0.945, 0.008, 35],
+  paper: [0.985, 0.003, 35],
 };
 
 const lin2srgb = (c) => (c <= 0.0031308 ? 12.92 * c : 1.055 * Math.pow(c, 1 / 2.4) - 0.055);
@@ -26,12 +28,9 @@ function oklchToRgb(L, C, H) {
   const h = (H * Math.PI) / 180;
   const a = C * Math.cos(h);
   const b = C * Math.sin(h);
-  const l_ = L + 0.3963377774 * a + 0.2158037573 * b;
-  const m_ = L - 0.1055613458 * a - 0.0638541728 * b;
-  const s_ = L - 0.0894841775 * a - 1.291485548 * b;
-  const l = l_ ** 3;
-  const m = m_ ** 3;
-  const s = s_ ** 3;
+  const l = (L + 0.3963377774 * a + 0.2158037573 * b) ** 3;
+  const m = (L - 0.1055613458 * a - 0.0638541728 * b) ** 3;
+  const s = (L - 0.0894841775 * a - 1.291485548 * b) ** 3;
   return [
     4.0767416621 * l - 3.3077115913 * m + 0.2309699292 * s,
     -1.2684380046 * l + 2.6097574011 * m - 0.3413193965 * s,
@@ -39,12 +38,8 @@ function oklchToRgb(L, C, H) {
   ].map((v) => Math.max(0, Math.min(1, lin2srgb(v))));
 }
 
-// WCAG relative luminance wants linear-light channels back again.
 const channel = (c) => (c <= 0.04045 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4));
-
-function luminance([r, g, b]) {
-  return 0.2126 * channel(r) + 0.7152 * channel(g) + 0.0722 * channel(b);
-}
+const luminance = ([r, g, b]) => 0.2126 * channel(r) + 0.7152 * channel(g) + 0.0722 * channel(b);
 
 function ratio(fg, bg) {
   const a = luminance(oklchToRgb(...TOKENS[fg]));
@@ -54,24 +49,26 @@ function ratio(fg, bg) {
 }
 
 // [foreground, background, minimum, what it is]
+// 4.5 = body text. 3.0 = large text (>=24px or >=19px bold) and UI borders.
 const PAIRS = [
-  ['graphite', 'bone', 4.5, 'body copy on bone'],
-  ['graphite', 'bone-shade', 4.5, 'body copy on bone-shade'],
-  ['muted', 'bone', 4.5, 'secondary copy on bone'],
-  ['muted', 'bone-shade', 4.5, 'secondary copy on bone-shade'],
-  ['ink', 'bone', 4.5, 'headings on bone'],
-  ['ink', 'bone-shade', 4.5, 'headings on bone-shade'],
-  ['copper-deep', 'bone', 4.5, 'accent label on bone'],
-  ['copper-deep', 'bone-shade', 4.5, 'accent label on bone-shade'],
-  ['bone', 'ink', 4.5, 'headings on ink'],
-  ['muted-on-ink', 'ink', 4.5, 'secondary copy on ink'],
-  ['muted-on-ink', 'ink-deep', 4.5, 'footer copy on ink-deep'],
-  ['bone', 'ink-deep', 4.5, 'footer headings on ink-deep'],
-  ['copper', 'ink', 4.5, 'accent label on ink'],
-  ['copper', 'ink-deep', 4.5, 'accent label on ink-deep'],
-  ['ink-deep', 'copper', 4.5, 'CTA text on copper'],
-  ['ink', 'copper', 4.5, 'CTA text on copper (alt)'],
-  ['copper', 'ink-raised', 3.0, 'accent on raised panel (large only)'],
+  ['bark', 'paper', 4.5, 'body copy on paper'],
+  ['bark', 'shell', 4.5, 'body copy on shell'],
+  ['bark', 'linen', 4.5, 'body copy on linen'],
+  ['brand', 'paper', 4.5, 'headings / accent on paper'],
+  ['brand', 'shell', 4.5, 'headings / accent on shell'],
+  ['clay', 'paper', 4.5, 'secondary copy on paper'],
+  ['clay', 'shell', 4.5, 'secondary copy on shell'],
+  ['paper', 'espresso', 4.5, 'body copy on espresso'],
+  ['paper', 'brand', 4.5, 'CTA label on brand'],
+  ['linen', 'espresso', 4.5, 'secondary copy on espresso'],
+  ['linen', 'brand', 4.5, 'secondary copy on brand'],
+  ['sand', 'espresso', 4.5, 'muted copy on espresso'],
+  ['shell', 'brand', 4.5, 'copy on brand'],
+  ['espresso', 'linen', 4.5, 'copy on linen chip'],
+  ['espresso', 'sand', 4.5, 'copy on sand chip'],
+  // Large-text and non-text pairings ride the 3:1 floor.
+  ['sand', 'brand', 3.0, 'muted on brand (large only)'],
+  ['clay', 'linen', 3.0, 'label on linen (large only)'],
 ];
 
 let failed = 0;

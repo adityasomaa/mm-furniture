@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import { archivo } from '@/lib/fonts';
+import { urbanist } from '@/lib/fonts';
 import type { Locale } from '@/lib/site';
 
 /**
@@ -12,8 +12,8 @@ import type { Locale } from '@/lib/site';
  */
 export function RootHtml({ locale, children }: { locale: Locale; children: ReactNode }) {
   return (
-    <html lang={locale === 'id' ? 'id-ID' : 'en'} className={archivo.variable}>
-      <body className="min-h-dvh bg-bone antialiased">{children}</body>
+    <html lang={locale === 'id' ? 'id-ID' : 'en'} className={urbanist.variable}>
+      <body className="min-h-dvh bg-paper antialiased">{children}</body>
     </html>
   );
 }
