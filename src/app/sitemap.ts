@@ -27,16 +27,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: 'terms', priority: 0.2, freq: 'yearly' },
   ];
 
+  // The listed URL is the English one, because English is the default surface and sits
+  // at the root. The Indonesian twin rides along in `alternates`.
   return routes.map((r) => ({
-    url: abs(localePath('id', r.path)),
+    url: abs(localePath('en', r.path)),
     lastModified: now,
     changeFrequency: r.freq,
     priority: r.priority,
     alternates: {
       languages: {
-        'id-ID': abs(localePath('id', r.path)),
         en: abs(localePath('en', r.path)),
-        'x-default': abs(localePath('id', r.path)),
+        'id-ID': abs(localePath('id', r.path)),
+        'x-default': abs(localePath('en', r.path)),
       },
     },
   }));

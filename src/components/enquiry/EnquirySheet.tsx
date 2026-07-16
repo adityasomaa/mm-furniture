@@ -37,8 +37,8 @@ export function EnquirySheet({
   const t =
     locale === 'id'
       ? {
-          title: 'Ceritakan kebutuhannya',
-          lede: 'Isi seperlunya. Kami balas lewat WhatsApp dengan perkiraan ukuran, bahan, dan harga.',
+          title: 'Ceritakan kebutuhan Anda',
+          lede: 'Isi seperlunya saja. Kami akan membalas melalui WhatsApp dengan perkiraan ukuran, bahan, dan harga.',
           name: 'Nama',
           namePh: 'Nama Anda',
           category: 'Kategori',
@@ -47,8 +47,8 @@ export function EnquirySheet({
           kindPh: 'Pilih jenis',
           detail: 'Detail',
           detailPh: 'Ukuran, bahan, jumlah, atau lokasi proyek. Sebisanya saja.',
-          submit: 'Kirim lewat WhatsApp',
-          note: 'Tombol ini membuka WhatsApp dengan pesan yang sudah tersusun. Anda masih bisa mengeditnya sebelum mengirim.',
+          submit: 'Kirim melalui WhatsApp',
+          note: 'Tombol ini akan membuka WhatsApp dengan pesan yang sudah tersusun. Anda masih dapat menyuntingnya sebelum mengirim.',
           close: 'Tutup',
         }
       : {
@@ -70,10 +70,10 @@ export function EnquirySheet({
   const kinds =
     locale === 'id'
       ? [
-          { value: 'stok', label: 'Barang yang sudah ada di katalog' },
+          { value: 'stok', label: 'Produk yang sudah ada di katalog' },
           { value: 'custom', label: 'Custom sesuai ukuran saya' },
           { value: 'interior', label: 'Proyek interior / fit-out' },
-          { value: 'ekspor', label: 'Pembelian jumlah besar / ekspor' },
+          { value: 'ekspor', label: 'Pembelian dalam jumlah besar / ekspor' },
         ]
       : [
           { value: 'stock', label: 'Something already in the catalogue' },
@@ -109,7 +109,7 @@ export function EnquirySheet({
             catLabel && `Kategori: ${catLabel}`,
             detail && `Detail: ${detail}`,
             '',
-            'Boleh minta info ukuran, bahan, dan harganya?',
+            'Boleh saya minta informasi ukuran, bahan, dan harganya?',
           ]
         : [
             `Hello MM Furniture, this is ${name || '(name not given)'}.`,
@@ -134,7 +134,10 @@ export function EnquirySheet({
         onClick={onClose}
         aria-hidden="true"
         className={[
-          'fixed inset-0 z-[150] bg-espresso/40 backdrop-blur-[2px] transition-opacity duration-500',
+          // A real blur, not a 2px hint. The scrim's job is to take the page behind out
+          // of the reading plane; at 2px the headlines behind stayed legible and competed
+          // with the form.
+          'fixed inset-0 z-[150] bg-espresso/55 backdrop-blur-lg transition-opacity duration-500',
           isOpen ? 'opacity-100' : 'pointer-events-none opacity-0',
         ].join(' ')}
       />

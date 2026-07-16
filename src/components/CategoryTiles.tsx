@@ -36,22 +36,17 @@ export function CategoryTiles({
               href={localePath(locale, `catalog/${c.slug}`)}
               className="group block h-full overflow-hidden rounded-xl border border-linen bg-shell transition-all duration-500 hover:border-clay/40 hover:shadow-[0_22px_50px_-26px_rgba(92,58,49,0.45)]"
             >
-              {/* The plates now carry alpha, so the piece stands on the tile's own warm
-                  tone rather than inside a white box. A soft radial gives it a ground. */}
-              <div
-                className={`relative overflow-hidden ${half ? 'aspect-[16/10]' : 'aspect-[4/3]'}`}
-                style={{
-                  backgroundImage:
-                    'radial-gradient(125% 95% at 50% 112%, oklch(0.86 0.018 35) 0%, transparent 60%)',
-                }}
-              >
+              {/* White plate. The images are keyed, trimmed to the subject and centred at
+                  a uniform size by the build (scripts/lib-cutout.mjs), so every tile
+                  presents its piece at the same weight in the same place. */}
+              <div className={`relative overflow-hidden bg-white ${half ? 'aspect-[16/10]' : 'aspect-[4/3]'}`}>
                 {cover && (
                   <CatalogImage
                     photo={cover}
                     alt=""
                     sizes={half ? '(max-width: 768px) 100vw, 50vw' : '(max-width: 768px) 100vw, 33vw'}
                     priority={i < 2}
-                    className="scale-[0.86] object-contain transition-transform duration-700 ease-[cubic-bezier(0.165,0.84,0.44,1)] group-hover:scale-[0.92]"
+                    className="object-contain p-5 transition-transform duration-700 ease-[cubic-bezier(0.165,0.84,0.44,1)] group-hover:scale-[1.05] sm:p-7"
                   />
                 )}
               </div>

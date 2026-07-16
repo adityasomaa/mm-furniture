@@ -35,10 +35,10 @@ export function pageMeta({
     alternates: {
       canonical,
       languages: {
-        'id-ID': idPath,
         en: enPath,
-        // Indonesian is the default surface, matching the legacy install.
-        'x-default': idPath,
+        'id-ID': idPath,
+        // English is the default surface and sits at the root.
+        'x-default': enPath,
       },
     },
     openGraph: {

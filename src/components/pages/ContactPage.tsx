@@ -6,7 +6,7 @@ import { Monogram } from '@/components/Wordmark';
 export function ContactPage({ locale }: { locale: Locale }) {
   const msg =
     locale === 'id'
-      ? 'Halo MM Furniture, saya mau tanya soal furnitur dan interior.'
+      ? 'Halo MM Furniture, saya ingin bertanya mengenai furnitur dan interior.'
       : 'Hello MM Furniture, I would like to ask about furniture and interiors.';
 
   return (

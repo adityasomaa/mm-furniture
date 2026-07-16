@@ -19,7 +19,7 @@ export function CategoryPage({ locale, slug }: { locale: Locale; slug: string })
     waLink(
       company.phones[0].wa,
       locale === 'id'
-        ? `Halo MM Furniture, saya tertarik dengan ${label} nomor ${String(index + 1).padStart(3, '0')} di katalog. Boleh minta info ukuran dan harganya?`
+        ? `Halo MM Furniture, saya tertarik dengan ${label} nomor ${String(index + 1).padStart(3, '0')} di katalog. Boleh saya minta informasi ukuran dan harganya?`
         : `Hello MM Furniture, I am interested in ${label} number ${String(index + 1).padStart(3, '0')} in your catalogue. Could you send sizes and a price?`,
     );
 

@@ -34,35 +34,35 @@ export const posts: Post[] = [
       en: 'Choosing timber for furniture in a Bali climate',
     },
     excerpt: {
-      id: 'Kelembapan Bali bisa mencapai 80% dan itu mengubah kayu. Ini yang kami perhatikan sebelum memotong papan pertama.',
+      id: 'Kelembapan di Bali dapat mencapai 80%, dan itu mengubah perilaku kayu. Inilah yang kami perhatikan sebelum memotong papan pertama.',
       en: 'Bali humidity runs to 80% and timber moves with it. This is what we check before the first board is cut.',
     },
     body: {
       id: [
         {
-          p: 'Kayu bukan bahan mati. Dia menyerap dan melepas uap air dari udara sekitarnya, memuai saat lembap dan menyusut saat kering. Di Bali, selisih kelembapan antara musim hujan dan musim kemarau cukup besar untuk membuat sambungan yang dikerjakan asal-asalan terbuka dalam hitungan bulan.',
+          p: 'Kayu bukanlah bahan yang mati. Ia menyerap dan melepas uap air dari udara di sekitarnya, memuai ketika lembap dan menyusut ketika kering. Di Bali, selisih kelembapan antara musim hujan dan musim kemarau cukup besar untuk membuat sambungan yang dikerjakan asal-asalan terbuka hanya dalam hitungan bulan.',
         },
-        { h: 'Kadar air adalah angka pertama yang kami cek' },
+        { h: 'Kadar air adalah angka pertama yang kami periksa' },
         {
-          p: 'Sebelum kayu masuk ke mesin, kadar airnya harus turun dulu ke titik yang stabil untuk lingkungan tempat barang itu akan dipakai. Kayu yang dikeringkan untuk ruangan ber-AC berbeda dengan kayu untuk teras terbuka. Furnitur yang dikirim ke luar negeri berbeda lagi, karena rumah di Eropa jauh lebih kering daripada rumah di Denpasar.',
+          p: 'Sebelum kayu masuk ke mesin, kadar airnya harus lebih dahulu diturunkan ke titik yang stabil bagi lingkungan tempat produk itu akan digunakan. Kayu yang dikeringkan untuk ruangan ber-AC berbeda dengan kayu untuk teras terbuka. Furnitur yang dikirim ke luar negeri berbeda lagi, sebab rumah di Eropa jauh lebih kering daripada rumah di Denpasar.',
         },
         {
-          p: 'Ini alasan kenapa kami menanyakan lokasi pemakaian sebelum memberi harga. Pertanyaannya terdengar sepele, tapi jawabannya menentukan pengeringan.',
+          p: 'Inilah alasan kami selalu menanyakan lokasi pemakaian sebelum menyebutkan harga. Pertanyaannya terdengar sepele, namun jawabannya menentukan proses pengeringan.',
         },
         { h: 'Arah serat menentukan ke mana kayu bergerak' },
         {
-          p: 'Kayu memuai jauh lebih banyak melintang serat daripada searah serat. Panel meja lebar yang dikunci mati di kedua sisi tidak punya ruang untuk bergerak, dan yang mengalah bukan kayunya, melainkan sambungannya. Konstruksi yang benar memberi jalan untuk pergerakan itu, bukan melawannya.',
+          p: 'Kayu memuai jauh lebih besar melintang serat dibandingkan searah serat. Panel meja lebar yang dikunci mati di kedua sisinya tidak memiliki ruang untuk bergerak, dan yang akhirnya mengalah bukan kayunya, melainkan sambungannya. Konstruksi yang baik memberi jalan bagi pergerakan itu, bukan melawannya.',
         },
-        { h: 'Yang bisa Anda cek sendiri' },
+        { h: 'Yang dapat Anda periksa sendiri' },
         {
           ul: [
-            'Raba bagian bawah dan belakang. Pengerjaan yang jujur tetap rapi di tempat yang tidak terlihat.',
-            'Lihat sambungannya, bukan cuma finishing-nya. Finishing bisa menutupi banyak hal untuk sementara.',
-            'Tanyakan kayunya sudah dikeringkan sampai kadar berapa dan untuk lingkungan seperti apa. Kalau penjualnya tidak tahu, itu jawaban juga.',
+            'Rabalah bagian bawah dan belakangnya. Pengerjaan yang jujur tetap rapi di tempat yang tidak terlihat.',
+            'Perhatikan sambungannya, bukan hanya finishing-nya. Finishing dapat menutupi banyak hal, tetapi hanya untuk sementara.',
+            'Tanyakan kayunya dikeringkan hingga kadar berapa, dan untuk lingkungan seperti apa. Bila penjualnya tidak mengetahuinya, itu pun sudah merupakan jawaban.',
           ],
         },
         {
-          p: 'Kami menyimpan produksi di workshop sendiri di Denpasar Barat justru supaya hal-hal seperti ini bisa dikontrol, bukan diserahkan ke pihak lain lalu berharap hasilnya benar.',
+          p: 'Kami mempertahankan produksi di workshop sendiri di Denpasar Barat justru agar hal-hal seperti ini dapat dikendalikan, bukan diserahkan kepada pihak lain lalu sekadar berharap hasilnya benar.',
         },
       ],
       en: [
@@ -104,32 +104,32 @@ export const posts: Post[] = [
       en: 'How a custom order works, from photo to finished piece',
     },
     excerpt: {
-      id: 'Anda tidak perlu gambar teknik. Sketsa di kertas atau satu foto sudah cukup untuk memulai. Ini urutannya.',
+      id: 'Anda tidak memerlukan gambar teknik. Sebuah sketsa di kertas atau satu foto sudah cukup untuk memulai. Berikut urutannya.',
       en: 'You do not need technical drawings. A sketch on paper or a single photo is enough to start. Here is the order of things.',
     },
     body: {
       id: [
         {
-          p: 'Sebagian besar pesanan custom di tempat kami dimulai dari satu pesan WhatsApp berisi foto. Kadang foto dari Pinterest, kadang foto kursi lama yang sudah rusak tapi ukurannya pas. Dua-duanya bisa dikerjakan.',
+          p: 'Sebagian besar pesanan custom di tempat kami berawal dari satu pesan WhatsApp berisi foto. Terkadang foto dari Pinterest, terkadang foto kursi lama yang sudah rusak namun ukurannya sudah pas. Keduanya sama-sama dapat kami kerjakan.',
         },
-        { h: '01 — Kirim apa yang Anda punya' },
+        { h: '01 — Kirimkan apa pun yang Anda miliki' },
         {
-          p: 'Foto referensi, sketsa tangan, atau gambar kerja lengkap. Kalau ada ukuran ruangan atau tinggi plafon, kirim juga. Kalau belum ada, tidak masalah, kami bantu ukur logikanya.',
+          p: 'Foto referensi, sketsa tangan, atau gambar kerja lengkap. Bila Anda memiliki ukuran ruangan atau tinggi plafon, kirimkan sekalian. Bila belum ada, tidak menjadi masalah; kami akan membantu menghitungnya bersama Anda.',
         },
-        { h: '02 — Kami balas dengan pertanyaan, bukan langsung harga' },
+        { h: '02 — Kami membalas dengan pertanyaan, bukan langsung harga' },
         {
-          p: 'Dipakai di dalam atau di luar? Kena matahari langsung? Ruangannya ber-AC? Barangnya akan dikirim ke mana? Pertanyaan-pertanyaan ini yang menentukan bahan dan pengeringan, dan pada akhirnya menentukan harga. Harga yang keluar sebelum pertanyaan ini dijawab biasanya harga yang akan berubah.',
+          p: 'Akan digunakan di dalam atau di luar ruangan? Terkena matahari langsung? Ruangannya ber-AC? Ke mana produknya akan dikirim? Pertanyaan-pertanyaan inilah yang menentukan bahan dan proses pengeringan, dan pada akhirnya menentukan harga. Harga yang diberikan sebelum pertanyaan ini terjawab umumnya adalah harga yang akan berubah.',
         },
-        { h: '03 — Ukuran, bahan, finishing dikunci' },
+        { h: '03 — Ukuran, bahan, dan finishing dikunci' },
         {
-          p: 'Setelah semua jelas, kami kirim rincian: ukuran jadi, jenis kayu, jenis finishing, dan perkiraan waktu pengerjaan. Ini yang jadi pegangan dua belah pihak.',
+          p: 'Setelah semuanya jelas, kami mengirimkan rinciannya: ukuran jadi, jenis kayu, jenis finishing, dan perkiraan waktu pengerjaan. Rincian inilah yang menjadi pegangan kedua belah pihak.',
         },
-        { h: '04 — Dikerjakan di workshop, diperiksa per bagian' },
+        { h: '04 — Dikerjakan di workshop, diperiksa bagian demi bagian' },
         {
-          p: 'Produksi jalan di Denpasar Barat. Setiap bagian diperiksa sebelum dirakit, dan dirakit sebelum difinishing. Kalau ada yang meleset dari rencana, Anda dengar dari kami lebih dulu, bukan pas barang datang.',
+          p: 'Produksi berjalan di Denpasar Barat. Setiap bagian diperiksa sebelum dirakit, dan dirakit sebelum difinishing. Bila ada yang meleset dari rencana, Anda mendengarnya dari kami terlebih dahulu, bukan pada saat barang tiba.',
         },
         {
-          p: 'Anda juga boleh datang melihat prosesnya. Workshop-nya terbuka, dan menurut kami itu bagian dari transaksi yang wajar.',
+          p: 'Anda juga dipersilakan datang menyaksikan prosesnya. Workshop kami terbuka, dan menurut kami keterbukaan itu adalah bagian yang wajar dari sebuah transaksi.',
         },
       ],
       en: [
@@ -168,33 +168,33 @@ export const posts: Post[] = [
       en: 'Looking after timber and rattan so it lasts',
     },
     excerpt: {
-      id: 'Furnitur yang dibuat benar bisa bertahan puluhan tahun. Yang merusaknya biasanya bukan pemakaian, tapi kebiasaan kecil.',
+      id: 'Furnitur yang dibuat dengan benar dapat bertahan puluhan tahun. Yang merusaknya biasanya bukan pemakaian, melainkan kebiasaan kecil sehari-hari.',
       en: 'Furniture built properly lasts decades. What kills it is rarely use, it is small habits.',
     },
     body: {
       id: [
         {
-          p: 'Kami sering melihat kursi berumur dua puluh tahun yang masih kokoh, dan kursi berumur dua tahun yang sudah goyang. Bedanya jarang soal harga. Lebih sering soal di mana barangnya diletakkan dan bagaimana dibersihkan.',
+          p: 'Kami sering menjumpai kursi berumur dua puluh tahun yang masih kokoh, dan kursi berumur dua tahun yang sudah goyang. Perbedaannya jarang terletak pada harga, melainkan pada di mana barang itu diletakkan dan bagaimana ia dirawat.',
         },
-        { h: 'Matahari langsung adalah musuh utama' },
+        { h: 'Sinar matahari langsung adalah musuh utamanya' },
         {
-          p: 'Sinar matahari langsung memudarkan warna kayu dan mengeringkan seratnya lebih cepat daripada bagian yang teduh. Kalau satu sisi meja kena matahari sepanjang hari dan sisi lain tidak, dua sisi itu akan bergerak dengan kecepatan berbeda. Geser sedikit, atau putar berkala.',
+          p: 'Sinar matahari langsung memudarkan warna kayu dan mengeringkan seratnya lebih cepat daripada bagian yang teduh. Bila satu sisi meja terkena matahari sepanjang hari sementara sisi lainnya tidak, kedua sisi itu akan bergerak dengan laju yang berbeda. Geser sedikit posisinya, atau putar secara berkala.',
         },
-        { h: 'Air, bukan cairan pembersih' },
+        { h: 'Cukup air, bukan cairan pembersih' },
         {
-          p: 'Lap lembap dan kering setelahnya sudah cukup untuk hampir semua hal. Pembersih ber-alkohol atau berbasis silikon menumpuk di permukaan, membuat finishing terlihat berkabut, dan menyulitkan kalau suatu saat mau difinishing ulang.',
+          p: 'Lap lembap yang diikuti lap kering sudah cukup untuk hampir semua keperluan. Pembersih beralkohol atau berbasis silikon menumpuk di permukaan, membuat finishing tampak berkabut, dan menyulitkan bila suatu saat Anda ingin melakukan finishing ulang.',
         },
-        { h: 'Rotan perlu kelembapan, bukan kekeringan' },
+        { h: 'Rotan membutuhkan kelembapan, bukan kekeringan' },
         {
           ul: [
-            'Jangan taruh rotan tepat di depan AC. Udara kering membuat anyamannya rapuh dan mudah patah.',
-            'Sesekali lap dengan kain sedikit lembap. Rotan yang benar-benar kering akan retak.',
-            'Kalau anyaman mulai kendur, biasanya masih bisa dikencangkan. Jangan tunggu sampai putus.',
+            'Hindari menempatkan rotan tepat di depan AC. Udara kering membuat anyamannya rapuh dan mudah patah.',
+            'Sesekali lap dengan kain yang sedikit lembap. Rotan yang benar-benar kering pada akhirnya akan retak.',
+            'Bila anyamannya mulai kendur, umumnya masih dapat dikencangkan kembali. Jangan menunggu sampai putus.',
           ],
         },
-        { h: 'Kencangkan bautnya sekali setahun' },
+        { h: 'Kencangkan bautnya setahun sekali' },
         {
-          p: 'Sambungan berbaut akan sedikit mengendur seiring kayu bergerak. Mengencangkannya sekali setahun mencegah goyangan yang lama-lama merusak lubang sambungan itu sendiri. Ini pekerjaan lima menit yang menghemat perbaikan besar.',
+          p: 'Sambungan berbaut akan sedikit mengendur seiring kayu bergerak. Mengencangkannya setahun sekali mencegah goyangan yang lama-kelamaan merusak lubang sambungan itu sendiri. Pekerjaan lima menit yang menghemat perbaikan besar di kemudian hari.',
         },
       ],
       en: [

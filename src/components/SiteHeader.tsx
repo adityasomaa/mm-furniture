@@ -38,8 +38,8 @@ export function SiteHeader({ locale }: { locale: Locale }) {
   const onDark = tone === 'dark';
 
   const other: Locale = locale === 'id' ? 'en' : 'id';
-  const otherHref = locale === 'id' ? '/en' : '/';
-  const homeHref = locale === 'id' ? '/' : '/en';
+  const otherHref = localePath(other);
+  const homeHref = localePath(locale);
 
   // Close everything when the route changes, or the menu hangs open over the new page.
   //
@@ -173,7 +173,7 @@ export function SiteHeader({ locale }: { locale: Locale }) {
               ) : (
                 <li key={item.key}>
                   <TransitionLink
-                    href={item.href[locale]}
+                    href={localePath(locale, item.path)}
                     className={`tag transition-colors duration-300 ${link}`}
                   >
                     {item.label[locale]}
@@ -298,7 +298,7 @@ export function SiteHeader({ locale }: { locale: Locale }) {
                 </li>
               ) : (
                 <li key={item.key}>
-                  <TransitionLink href={item.href[locale]} className="block py-4 text-lg text-bark">
+                  <TransitionLink href={localePath(locale, item.path)} className="block py-4 text-lg text-bark">
                     {item.label[locale]}
                   </TransitionLink>
                 </li>

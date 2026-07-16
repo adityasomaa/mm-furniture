@@ -39,7 +39,7 @@ export function PhotoGrid({
     waLink(
       waNumber,
       locale === 'id'
-        ? `Halo MM Furniture, saya tertarik dengan ${label} nomor ${String(index + 1).padStart(3, '0')} di katalog. Boleh minta info ukuran dan harganya?`
+        ? `Halo MM Furniture, saya tertarik dengan ${label} nomor ${String(index + 1).padStart(3, '0')} di katalog. Boleh saya minta informasi ukuran dan harganya?`
         : `Hello MM Furniture, I am interested in ${label} number ${String(index + 1).padStart(3, '0')} in your catalogue. Could you send sizes and a price?`,
     );
 
@@ -82,13 +82,9 @@ export function PhotoGrid({
           return (
             <li
               key={p.slug}
-              className={`group relative aspect-square overflow-hidden rounded-md border border-linen/70 bg-shell ${
+              className={`group relative aspect-square overflow-hidden rounded-md border border-linen/70 bg-white ${
                 feature ? 'col-span-2 row-span-2' : ''
               }`}
-              style={{
-                backgroundImage:
-                  'radial-gradient(125% 95% at 50% 112%, oklch(0.86 0.018 35) 0%, transparent 62%)',
-              }}
             >
               <button
                 type="button"
@@ -105,7 +101,7 @@ export function PhotoGrid({
                       : '(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw'
                   }
                   priority={i < 4}
-                  className="scale-[0.88] object-contain transition-transform duration-700 ease-[cubic-bezier(0.165,0.84,0.44,1)] group-hover:scale-[0.95]"
+                  className="object-contain p-3 transition-transform duration-700 ease-[cubic-bezier(0.165,0.84,0.44,1)] group-hover:scale-[1.06] sm:p-4"
                 />
               </button>
 
@@ -123,7 +119,7 @@ export function PhotoGrid({
         onClick={(e) => {
           if (e.target === dialogRef.current) hide();
         }}
-        className="m-0 h-full max-h-none w-full max-w-none bg-espresso/96 p-0 backdrop:bg-espresso/80"
+        className="m-0 h-full max-h-none w-full max-w-none bg-espresso/[0.97] p-0 backdrop:bg-espresso/85 backdrop:backdrop-blur-md"
       >
         {active && (
           <div className="flex h-full w-full flex-col">

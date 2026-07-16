@@ -63,7 +63,7 @@ const INTRO_HOLD_MS = 1100;
 const CLOSE_FALLBACK_MS = CLOSE_MS + 600;
 
 const norm = (p: string) => (p !== '/' && p.endsWith('/') ? p.slice(0, -1) : p);
-const isHome = (p: string) => norm(p) === '' || norm(p) === '/' || norm(p) === '/en';
+const isHome = (p: string) => norm(p) === '' || norm(p) === '/' || norm(p) === '/id';
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
 export function TransitionProvider({ children }: { children: ReactNode }) {
@@ -77,8 +77,6 @@ export function TransitionProvider({ children }: { children: ReactNode }) {
 
   const pending = useRef<string | null>(null);
   const lastPath = useRef(pathname);
-  const phaseRef = useRef<Phase>('intro');
-  phaseRef.current = phase;
 
   // Resolved by the curtain's own transitionend. See `navigate`.
   const settled = useRef<(() => void) | null>(null);

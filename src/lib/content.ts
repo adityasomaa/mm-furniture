@@ -9,42 +9,36 @@ import type { Locale } from './site';
  */
 export type L<T = string> = Record<Locale, T>;
 
-export const nav: { key: string; href: L; label: L }[] = [
-  { key: 'home', href: { id: '/', en: '/en' }, label: { id: 'Beranda', en: 'Home' } },
-  { key: 'about', href: { id: '/about', en: '/en/about' }, label: { id: 'Tentang', en: 'About' } },
-  { key: 'catalog', href: { id: '/catalog', en: '/en/catalog' }, label: { id: 'Katalog', en: 'Catalogue' } },
-  { key: 'blog', href: { id: '/blog', en: '/en/blog' }, label: { id: 'Blog', en: 'Blog' } },
-  { key: 'contact', href: { id: '/contact', en: '/en/contact' }, label: { id: 'Kontak', en: 'Contact' } },
+/** Hrefs are built from `localePath`, so the English-at-root / Indonesian-at-/id split
+ *  is decided in exactly one place (site.ts) rather than restated per link. */
+export const nav: { key: string; path: string; label: L }[] = [
+  { key: 'home', path: '', label: { id: 'Beranda', en: 'Home' } },
+  { key: 'about', path: 'about', label: { id: 'Tentang', en: 'About' } },
+  { key: 'catalog', path: 'catalog', label: { id: 'Katalog', en: 'Catalogue' } },
+  { key: 'blog', path: 'blog', label: { id: 'Blog', en: 'Blog' } },
+  { key: 'contact', path: 'contact', label: { id: 'Kontak', en: 'Contact' } },
 ];
 
 /** Footer-only routes. Kept out of `nav` so the header stays to five links. */
-export const legalNav: { key: string; href: L; label: L }[] = [
-  {
-    key: 'privacy',
-    href: { id: '/privacy', en: '/en/privacy' },
-    label: { id: 'Kebijakan Privasi', en: 'Privacy Policy' },
-  },
-  {
-    key: 'terms',
-    href: { id: '/terms', en: '/en/terms' },
-    label: { id: 'Ketentuan Hukum', en: 'Legal Terms' },
-  },
+export const legalNav: { key: string; path: string; label: L }[] = [
+  { key: 'privacy', path: 'privacy', label: { id: 'Kebijakan Privasi', en: 'Privacy Policy' } },
+  { key: 'terms', path: 'terms', label: { id: 'Ketentuan Hukum', en: 'Legal Terms' } },
 ];
 
 export const ui = {
   skipToContent: { id: 'Lompat ke konten utama', en: 'Skip to main content' },
   menu: { id: 'Menu', en: 'Menu' },
   close: { id: 'Tutup', en: 'Close' },
-  whatsapp: { id: 'Chat WhatsApp', en: 'Chat on WhatsApp' },
+  whatsapp: { id: 'Hubungi via WhatsApp', en: 'Chat on WhatsApp' },
   viewCatalog: { id: 'Lihat katalog', en: 'View the catalogue' },
   photoCount: { id: 'foto', en: 'photos' },
   allCategories: { id: 'Semua kategori', en: 'All categories' },
   backToCatalog: { id: 'Kembali ke katalog', en: 'Back to the catalogue' },
   home: { id: 'Beranda', en: 'Home' },
   languageLabel: { id: 'Bahasa', en: 'Language' },
-  askAboutThis: { id: 'Tanya soal item ini', en: 'Ask about this piece' },
+  askAboutThis: { id: 'Tanyakan produk ini', en: 'Ask about this piece' },
   openInMaps: { id: 'Buka di Maps', en: 'Open in Maps' },
-  enquire: { id: 'Enquire', en: 'Enquire' },
+  enquire: { id: 'Konsultasi', en: 'Enquire' },
   loading: { id: 'Memuat', en: 'Loading' },
 } satisfies Record<string, L>;
 
@@ -54,7 +48,7 @@ export const home = {
     en: 'MM Furniture Globalindo — Export-Grade Furniture from Bali',
   },
   metaDescription: {
-    id: 'Produsen furnitur dan kontraktor interior di Bali. Sofa, kursi, meja, bed, dan almari dikerjakan di workshop kami di Denpasar. Kualitas ekspor, harga bersahabat. Showroom di Sunset Road, Kuta.',
+    id: 'Produsen furnitur dan kontraktor interior di Bali. Sofa, kursi, meja, tempat tidur, dan almari dikerjakan langsung di workshop kami di Denpasar. Kualitas ekspor dengan harga yang bersahabat. Showroom di Sunset Road, Kuta.',
     en: 'Furniture maker and interior fit-out contractor in Bali. Sofas, chairs, tables, beds and storage built in our Denpasar workshop. Export quality at an affordable price. Showroom on Sunset Road, Kuta.',
   },
 
@@ -64,21 +58,21 @@ export const home = {
     en: 'Export-grade furniture, built in Bali.',
   },
   heroBody: {
-    id: 'Workshop kami di Denpasar Barat mengerjakan sofa, kursi, meja, bed, dan almari untuk rumah, vila, kantor, dan proyek interior. Standar konstruksinya dibuat untuk lolos ekspor. Harganya tetap masuk akal.',
+    id: 'Workshop kami di Denpasar Barat mengerjakan sofa, kursi, meja, tempat tidur, dan almari untuk rumah, vila, kantor, serta proyek interior. Konstruksinya dibuat dengan standar yang siap ekspor, dan harganya tetap wajar.',
     en: 'Our workshop in Denpasar Barat builds sofas, chairs, tables, beds and storage for homes, villas, offices and interior projects. Built to a standard that clears export. Priced so it still makes sense.',
   },
   heroPhotoAlt: {
-    id: 'Sofa rangka kayu dengan dudukan empuk, difoto di showroom MM Furniture',
+    id: 'Sofa berangka kayu dengan dudukan empuk, difoto di showroom MM Furniture',
     en: 'A timber-framed sofa with upholstered seating, photographed in the MM Furniture showroom',
   },
 
   // The three facts a buyer actually checks. All verified.
-  proofLabel: { id: 'Yang bisa dicek', en: 'What you can check' },
+  proofLabel: { id: 'Yang bisa Anda periksa sendiri', en: 'What you can check' },
   proof: {
     id: [
-      { k: 'Workshop sendiri', v: 'Produksi dikerjakan di tempat kami di Denpasar Barat, bukan dioper ke pihak ketiga.' },
-      { k: 'Showroom fisik', v: 'Jl. Sunset Road 71, Kuta. Datang, duduk di sofanya, cek jahitan dan sambungannya.' },
-      { k: 'Custom dilayani', v: 'Ukuran, bahan, dan finishing bisa menyesuaikan gambar kerja atau contoh yang Anda bawa.' },
+      { k: 'Workshop milik sendiri', v: 'Seluruh produksi berjalan di tempat kami di Denpasar Barat, tidak dialihkan ke pihak ketiga.' },
+      { k: 'Showroom yang nyata', v: 'Jl. Sunset Road 71, Kuta. Silakan datang, duduki sofanya, dan periksa sendiri jahitan serta sambungannya.' },
+      { k: 'Pesanan custom', v: 'Ukuran, bahan, dan finishing dapat menyesuaikan gambar kerja atau contoh yang Anda bawa.' },
     ],
     en: [
       { k: 'Our own workshop', v: 'Production happens at our place in Denpasar Barat. It is not handed to a third party.' },
@@ -88,23 +82,23 @@ export const home = {
   },
 
   catalogKicker: { id: 'Katalog', en: 'Catalogue' },
-  catalogTitle: { id: 'Tujuh kategori. Semua dari workshop yang sama.', en: 'Seven categories. All out of the same workshop.' },
+  catalogTitle: { id: 'Tujuh kategori, satu workshop yang sama.', en: 'Seven categories. All out of the same workshop.' },
   catalogBody: {
-    id: 'Foto di bawah ini diambil dari barang yang benar-benar kami kerjakan, bukan render. Kalau ada yang cocok, kirim fotonya lewat WhatsApp dan kami balas dengan ukuran dan harganya.',
+    id: 'Semua foto berikut adalah produk yang benar-benar kami kerjakan, bukan render. Bila ada yang menarik perhatian Anda, kirimkan fotonya melalui WhatsApp dan kami akan membalas dengan ukuran serta harganya.',
     en: 'The photographs below are of pieces we actually built, not renders. If something fits, send us the photo on WhatsApp and we will come back with sizes and a price.',
   },
 
   servicesKicker: { id: 'Interior', en: 'Interior' },
-  servicesTitle: { id: 'Bukan cuma isi ruangan. Kami kerjakan ruangannya.', en: 'Not just what goes in the room. The room itself.' },
+  servicesTitle: { id: 'Bukan hanya isi ruangannya, tetapi ruangannya sekalian.', en: 'Not just what goes in the room. The room itself.' },
   servicesBody: {
-    id: 'Untuk kantor dan ruang komersial, kami menangani pekerjaan interior dari desain sampai barang terpasang di tempat.',
+    id: 'Untuk kantor dan ruang komersial, kami menangani pekerjaan interior mulai dari desain hingga seluruhnya terpasang di lokasi.',
     en: 'For offices and commercial spaces we take interior work from design through to installed on site.',
   },
   services: {
     id: [
       { k: 'Desain interior', v: 'Gambar kerja, tata letak, dan pemilihan material untuk ruang kerja dan komersial.' },
-      { k: 'Pengadaan barang & jasa', v: 'Kami carikan, kami koordinasikan, kami yang tanggung jadwalnya.' },
-      { k: 'Fit-out kantor & komersial', v: 'Pemasangan di lokasi sampai ruangan siap dipakai.' },
+      { k: 'Pengadaan barang & jasa', v: 'Kami yang mencarikan, mengoordinasikan, dan bertanggung jawab atas jadwalnya.' },
+      { k: 'Fit-out kantor & komersial', v: 'Pemasangan di lokasi hingga ruangan benar-benar siap digunakan.' },
     ],
     en: [
       { k: 'Interior design', v: 'Drawings, layouts and material selection for workspaces and commercial rooms.' },
@@ -114,15 +108,15 @@ export const home = {
   },
 
   workshopKicker: { id: 'Dua alamat', en: 'Two addresses' },
-  workshopTitle: { id: 'Satu tempat untuk melihat. Satu tempat untuk membuat.', en: 'One place to look. One place where it gets made.' },
+  workshopTitle: { id: 'Satu tempat untuk melihat, satu tempat untuk membuat.', en: 'One place to look. One place where it gets made.' },
   workshopBody: {
-    id: 'Showroom dan workshop kami terpisah, dan dua-duanya bisa Anda datangi. Banyak penjual furnitur di Bali cuma punya yang pertama.',
+    id: 'Showroom dan workshop kami berada di lokasi terpisah, dan keduanya terbuka untuk Anda kunjungi. Sebagian besar penjual furnitur di Bali hanya memiliki yang pertama.',
     en: 'Our showroom and our workshop are separate places, and you can visit both. Plenty of furniture sellers in Bali only have the first one.',
   },
 
-  ctaTitle: { id: 'Kirim ukurannya. Kami balas dengan harganya.', en: 'Send us the sizes. We will come back with a price.' },
+  ctaTitle: { id: 'Kirimkan ukurannya, kami balas dengan harganya.', en: 'Send us the sizes. We will come back with a price.' },
   ctaBody: {
-    id: 'Foto referensi, sketsa di kertas, atau gambar kerja lengkap. Semuanya kami terima lewat WhatsApp.',
+    id: 'Foto referensi, sketsa di atas kertas, atau gambar kerja lengkap. Semuanya dapat Anda kirimkan melalui WhatsApp.',
     en: 'A reference photo, a sketch on paper, or a full drawing set. All of it works over WhatsApp.',
   },
 } as const;
@@ -136,20 +130,20 @@ export const about = {
     id: 'MM Furniture Globalindo adalah produsen furnitur dan penyedia solusi interior di Bali, dengan workshop di Denpasar Barat dan showroom di Sunset Road, Kuta.',
     en: 'MM Furniture Globalindo is a furniture maker and interior solutions provider in Bali, with a workshop in Denpasar Barat and a showroom on Sunset Road, Kuta.',
   },
-  title: { id: 'Kami membuat furnitur di Bali dan mengirimkannya ke mana saja.', en: 'We make furniture in Bali and we send it wherever it needs to go.' },
+  title: { id: 'Kami membuat furnitur di Bali, dan mengirimkannya ke mana pun.', en: 'We make furniture in Bali and we send it wherever it needs to go.' },
   lede: {
-    id: 'MM Furniture Globalindo menggabungkan pengerjaan tangan dengan mesin dan alat ukur modern. Hasilnya furnitur yang konstruksinya siap ekspor, dengan harga yang masih bisa dipakai bersaing di pasar lokal maupun luar.',
+    id: 'MM Furniture Globalindo memadukan pengerjaan tangan dengan mesin dan alat ukur modern. Hasilnya adalah furnitur dengan konstruksi yang siap ekspor, pada harga yang tetap kompetitif di pasar lokal maupun luar negeri.',
     en: 'MM Furniture Globalindo combines hand work with modern machinery and measurement. The result is furniture built to clear export, at a price that still competes at home and abroad.',
   },
   bodyTitle: { id: 'Cara kami bekerja', en: 'How we work' },
   values: {
     id: [
-      { k: 'Profesional', v: 'Pekerjaan dipegang orang yang tahu sambungan mana yang akan lepas dalam dua tahun, dan menghindarinya.' },
-      { k: 'Tepat waktu', v: 'Jadwal yang kami sepakati adalah jadwal yang kami pegang. Kalau meleset, Anda dengar dari kami lebih dulu.' },
-      { k: 'Evaluasi detail', v: 'Setiap proyek diperiksa per bagian sebelum keluar dari workshop.' },
-      { k: 'Bentuk dan fungsi', v: 'Barangnya harus enak dilihat dan tetap enak dipakai setelah lima tahun.' },
-      { k: 'Berkelanjutan', v: 'Material dan sisa produksi dikelola supaya tidak terbuang percuma.' },
-      { k: 'Kemitraan', v: 'Harga yang wajar untuk dua pihak lebih berguna daripada satu transaksi bagus.' },
+      { k: 'Profesional', v: 'Pekerjaan ditangani orang yang tahu sambungan mana yang akan lepas dalam dua tahun, dan sejak awal menghindarinya.' },
+      { k: 'Tepat waktu', v: 'Jadwal yang kami sepakati adalah jadwal yang kami pegang. Bila ada perubahan, Anda mendengarnya dari kami terlebih dahulu.' },
+      { k: 'Evaluasi detail', v: 'Setiap proyek diperiksa bagian demi bagian sebelum meninggalkan workshop.' },
+      { k: 'Bentuk dan fungsi', v: 'Produknya harus enak dipandang, dan tetap nyaman digunakan lima tahun kemudian.' },
+      { k: 'Berkelanjutan', v: 'Material dan sisa produksi dikelola agar tidak terbuang percuma.' },
+      { k: 'Kemitraan', v: 'Harga yang wajar bagi kedua pihak jauh lebih berarti daripada satu transaksi yang menguntungkan sesaat.' },
     ],
     en: [
       { k: 'Professional', v: 'The work is held by people who know which joint fails in two years, and avoid it.' },
@@ -164,24 +158,24 @@ export const about = {
 
 export const catalog = {
   metaTitle: {
-    id: 'Katalog Furnitur — Sofa, Kursi, Meja, Bed, Almari | MM Furniture Bali',
+    id: 'Katalog Furnitur — Sofa, Kursi, Meja, Tempat Tidur, Almari | MM Furniture Bali',
     en: 'Furniture Catalogue — Sofas, Chairs, Tables, Beds, Storage | MM Furniture Bali',
   },
   metaDescription: {
-    id: 'Katalog furnitur MM Furniture Globalindo: sofa, kursi, meja, set meja, desk, bed, rak dan almari. Foto asli dari workshop kami di Denpasar, Bali. Custom dilayani.',
+    id: 'Katalog furnitur MM Furniture Globalindo: sofa, kursi, meja, set meja, desk, tempat tidur, rak, dan almari. Foto asli dari workshop kami di Denpasar, Bali. Melayani pesanan custom.',
     en: 'The MM Furniture Globalindo catalogue: sofas, chairs, tables, table sets, desks, beds, shelving and storage. Real photographs from our Denpasar workshop in Bali. Custom orders welcome.',
   },
   title: { id: 'Katalog', en: 'Catalogue' },
   lede: {
-    id: 'Semua foto di sini adalah barang yang keluar dari workshop kami. Tidak ada render, tidak ada foto stok. Ukuran, bahan, dan finishing bisa diubah sesuai kebutuhan.',
+    id: 'Semua foto di halaman ini adalah produk yang keluar dari workshop kami. Tidak ada render, tidak ada foto stok. Ukuran, bahan, dan finishing dapat disesuaikan dengan kebutuhan Anda.',
     en: 'Every photograph here is a piece that came out of our workshop. No renders, no stock photography. Sizes, materials and finishes can all change to suit the job.',
   },
   emptyCategory: {
-    id: 'Foto untuk kategori ini sedang kami siapkan. Hubungi kami lewat WhatsApp dan kami kirimkan yang terbaru.',
+    id: 'Foto untuk kategori ini sedang kami siapkan. Silakan hubungi kami melalui WhatsApp, dan kami akan mengirimkan koleksi terbaru.',
     en: 'Photographs for this category are being prepared. Message us on WhatsApp and we will send the latest.',
   },
   categoryLede: {
-    id: 'Foto asli dari workshop dan showroom kami. Ada yang cocok? Kirim nomor fotonya lewat WhatsApp.',
+    id: 'Foto asli dari workshop dan showroom kami. Ada yang cocok? Kirimkan nomor fotonya melalui WhatsApp.',
     en: 'Real photographs from our workshop and showroom. Something fit? Send us the photo number on WhatsApp.',
   },
 } as const;
@@ -192,12 +186,12 @@ export const contact = {
     en: 'Contact MM Furniture Globalindo — Kuta Showroom & Denpasar Workshop',
   },
   metaDescription: {
-    id: 'Hubungi MM Furniture Globalindo. WhatsApp +62 878-6165-4856. Showroom Jl. Sunset Road 71, Kuta, Badung. Workshop Jl. Pulau Ayu Dalam 15, Denpasar Barat, Bali.',
+    id: 'Hubungi MM Furniture Globalindo. WhatsApp +62 878-6165-4856. Showroom di Jl. Sunset Road 71, Kuta, Badung. Workshop di Jl. Pulau Ayu Dalam 15, Denpasar Barat, Bali.',
     en: 'Contact MM Furniture Globalindo. WhatsApp +62 878-6165-4856. Showroom at Jl. Sunset Road 71, Kuta, Badung. Workshop at Jl. Pulau Ayu Dalam 15, Denpasar Barat, Bali.',
   },
   title: { id: 'Kontak', en: 'Contact' },
   lede: {
-    id: 'Cara tercepat adalah WhatsApp. Kirim foto atau ukuran, dan kami balas dengan perkiraan harga dan waktu pengerjaan.',
+    id: 'Cara tercepat adalah melalui WhatsApp. Kirimkan foto atau ukuran, dan kami akan membalas dengan perkiraan harga serta waktu pengerjaannya.',
     en: 'WhatsApp is the fastest route. Send a photo or the sizes and we will come back with an estimate and a lead time.',
   },
   phoneLabel: { id: 'Telepon & WhatsApp', en: 'Phone & WhatsApp' },
@@ -215,45 +209,45 @@ export const faq: { q: L; a: L }[] = [
   {
     q: { id: 'Apa itu MM Furniture Globalindo?', en: 'What is MM Furniture Globalindo?' },
     a: {
-      id: 'MM Furniture Globalindo adalah produsen furnitur dan penyedia solusi interior yang berbasis di Bali, Indonesia. Perusahaan ini mengerjakan sofa, kursi, meja, set meja, desk, bed, rak, dan almari di workshop sendiri di Denpasar Barat, serta menangani desain interior, pengadaan barang dan jasa, dan fit-out kantor dan ruang komersial. Showroom-nya berada di Jl. Sunset Road 71, Kuta, Badung, Bali.',
+      id: 'MM Furniture Globalindo adalah produsen furnitur sekaligus penyedia solusi interior yang berbasis di Bali, Indonesia. Perusahaan ini mengerjakan sofa, kursi, meja, set meja, desk, tempat tidur, rak, dan almari di workshop miliknya sendiri di Denpasar Barat, serta menangani desain interior, pengadaan barang dan jasa, dan fit-out ruang kantor maupun komersial. Showroom-nya berada di Jl. Sunset Road 71, Kuta, Badung, Bali.',
       en: 'MM Furniture Globalindo is a furniture manufacturer and interior solutions provider based in Bali, Indonesia. It builds sofas, chairs, tables, table sets, desks, beds, shelving and storage in its own workshop in Denpasar Barat, and handles interior design, goods and service procurement, and office and commercial fit-out. Its showroom is at Jl. Sunset Road 71, Kuta, Badung, Bali.',
     },
   },
   {
     q: { id: 'Di mana lokasi MM Furniture?', en: 'Where is MM Furniture located?' },
     a: {
-      id: 'MM Furniture Globalindo punya dua lokasi di Bali. Showroom dan kantornya di Jl. Sunset Road 71, Kuta, Badung. Workshop produksinya di Jl. Pulau Ayu Dalam 15, Denpasar Barat, Denpasar. Keduanya terbuka untuk dikunjungi.',
+      id: 'MM Furniture Globalindo memiliki dua lokasi di Bali. Showroom dan kantornya berada di Jl. Sunset Road 71, Kuta, Badung. Workshop produksinya berada di Jl. Pulau Ayu Dalam 15, Denpasar Barat, Denpasar. Keduanya terbuka untuk dikunjungi.',
       en: 'MM Furniture Globalindo has two locations in Bali. The showroom and office are at Jl. Sunset Road 71, Kuta, Badung. The production workshop is at Jl. Pulau Ayu Dalam 15, Denpasar Barat, Denpasar. Both are open to visit.',
     },
   },
   {
     q: { id: 'Furnitur apa saja yang dibuat MM Furniture?', en: 'What furniture does MM Furniture make?' },
     a: {
-      id: 'MM Furniture Globalindo membuat tujuh kategori furnitur: sofa, kursi, meja, set meja, desk, bed, serta rak dan almari. Semuanya dikerjakan di workshop sendiri di Denpasar Barat, Bali, untuk rumah, vila, kantor, dan proyek komersial.',
+      id: 'MM Furniture Globalindo membuat tujuh kategori furnitur: sofa, kursi, meja, set meja, desk, tempat tidur, serta rak dan almari. Semuanya dikerjakan di workshop milik sendiri di Denpasar Barat, Bali, untuk kebutuhan rumah, vila, kantor, dan proyek komersial.',
       en: 'MM Furniture Globalindo makes seven categories of furniture: sofas, chairs, tables, table sets, desks, beds, and shelving and storage. All of it is built in its own workshop in Denpasar Barat, Bali, for homes, villas, offices and commercial projects.',
     },
   },
   {
     q: { id: 'Apakah MM Furniture menerima pesanan custom?', en: 'Does MM Furniture take custom orders?' },
     a: {
-      id: 'Ya. MM Furniture Globalindo menerima pesanan custom. Ukuran, material, dan finishing bisa menyesuaikan gambar kerja, sketsa, atau contoh yang Anda kirimkan. Cara tercepat memulai adalah mengirim foto atau ukuran lewat WhatsApp ke +62 878-6165-4856.',
+      id: 'Ya. MM Furniture Globalindo menerima pesanan custom. Ukuran, material, dan finishing dapat menyesuaikan gambar kerja, sketsa, atau contoh yang Anda kirimkan. Cara tercepat untuk memulai adalah mengirimkan foto atau ukuran melalui WhatsApp ke +62 878-6165-4856.',
       en: 'Yes. MM Furniture Globalindo accepts custom orders. Sizes, materials and finishes can follow your drawings, a sketch, or a sample you send. The fastest way to start is to send a photo or the dimensions over WhatsApp to +62 878-6165-4856.',
     },
   },
   {
     q: { id: 'Apakah MM Furniture menangani interior kantor?', en: 'Does MM Furniture handle office interiors?' },
     a: {
-      id: 'Ya. Selain memproduksi furnitur, MM Furniture Globalindo menangani solusi interior terpadu: desain interior, pengadaan barang dan jasa, serta fit-out ruang kantor dan komersial sampai siap pakai.',
+      id: 'Ya. Selain memproduksi furnitur, MM Furniture Globalindo menangani solusi interior terpadu: desain interior, pengadaan barang dan jasa, serta fit-out ruang kantor dan komersial hingga siap digunakan.',
       en: 'Yes. Alongside manufacturing furniture, MM Furniture Globalindo delivers integrated interior solutions: interior design, goods and service procurement, and fit-out of office and commercial spaces through to ready to use.',
     },
   },
   {
     q: { id: 'Bagaimana cara menghubungi MM Furniture?', en: 'How do I contact MM Furniture?' },
     a: {
-      id: 'Hubungi MM Furniture Globalindo lewat WhatsApp di +62 878-6165-4856 atau +62 878-6134-0445, atau email ke info@mmfurniture.com. Anda juga bisa datang ke showroom di Jl. Sunset Road 71, Kuta, Badung, Bali.',
+      id: 'Hubungi MM Furniture Globalindo melalui WhatsApp di +62 878-6165-4856 atau +62 878-6134-0445, atau melalui email ke info@mmfurniture.com. Anda juga dapat langsung mengunjungi showroom kami di Jl. Sunset Road 71, Kuta, Badung, Bali.',
       en: 'Contact MM Furniture Globalindo on WhatsApp at +62 878-6165-4856 or +62 878-6134-0445, or by email at info@mmfurniture.com. You can also visit the showroom at Jl. Sunset Road 71, Kuta, Badung, Bali.',
     },
   },
 ];
 
-export const faqTitle: L = { id: 'Pertanyaan yang sering masuk', en: 'Questions we get' };
+export const faqTitle: L = { id: 'Pertanyaan yang sering diajukan', en: 'Questions we get' };

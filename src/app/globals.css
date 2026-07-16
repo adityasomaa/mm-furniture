@@ -114,32 +114,44 @@
     max-width: 68ch;
   }
 
-  /* Glassmorphism, used sparingly and only where something genuinely sits above
-     moving content: the header once scrolled, the cookie panel, the enquiry sheet.
-     Not a decorative default. */
+  /* Glassmorphism, used sparingly and only where something genuinely sits above moving
+     content: the header once scrolled, the cookie panel, the enquiry sheet, the
+     dropdowns. Not a decorative default.
+
+     Tuned heavily toward legibility. At 68% tint and a 20px blur the page behind stayed
+     readable *through* these panels, so their own text sat on top of moving competing
+     text. Glass has to obscure what is behind it or it is just a transparency bug with a
+     nice name. 90% tint plus a 32px blur keeps the frosted look while making the panel
+     the only thing you can actually read. */
+  /* Only the standard `backdrop-filter` is declared here. Writing the -webkit- alias
+     alongside it is worse than useless: Lightning CSS treats the two as the same
+     property, keeps whichever came last, and emitted ONLY
+     `-webkit-backdrop-filter` into the bundle. Chrome then reports
+     `CSS.supports('-webkit-backdrop-filter', ...)` as FALSE and drops it as unknown,
+     so the panels shipped with no blur whatsoever and the page read straight through
+     them. Lightning CSS adds whatever prefixes the browser targets need on its own;
+     hand-writing them defeats it. */
   .glass {
-    background: color-mix(in oklch, var(--color-paper) 68%, transparent);
-    backdrop-filter: blur(20px) saturate(160%);
-    -webkit-backdrop-filter: blur(20px) saturate(160%);
-    border: 1px solid color-mix(in oklch, var(--color-paper) 55%, transparent);
-    box-shadow: 0 1px 0 0 color-mix(in oklch, var(--color-paper) 60%, transparent) inset;
+    background: color-mix(in oklch, var(--color-paper) 90%, transparent);
+    backdrop-filter: blur(32px) saturate(150%);
+    border: 1px solid color-mix(in oklch, var(--color-paper) 70%, transparent);
+    box-shadow: 0 1px 0 0 color-mix(in oklch, var(--color-paper) 70%, transparent) inset;
   }
 
   .glass-dark {
-    background: color-mix(in oklch, var(--color-espresso) 62%, transparent);
-    backdrop-filter: blur(20px) saturate(140%);
-    -webkit-backdrop-filter: blur(20px) saturate(140%);
+    background: color-mix(in oklch, var(--color-espresso) 88%, transparent);
+    backdrop-filter: blur(32px) saturate(140%);
     border: 1px solid color-mix(in oklch, var(--color-linen) 14%, transparent);
   }
 
-  /* Fallback: without backdrop-filter the panels would be unreadable transparent
-     boxes, so they go solid instead. */
-  @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  /* Fallback: without backdrop-filter the panels would be near-transparent boxes with
+     text scrolling behind them, so they go effectively solid instead. */
+  @supports not (backdrop-filter: blur(1px)) {
     .glass {
-      background: color-mix(in oklch, var(--color-paper) 97%, transparent);
+      background: color-mix(in oklch, var(--color-paper) 99%, transparent);
     }
     .glass-dark {
-      background: color-mix(in oklch, var(--color-espresso) 96%, transparent);
+      background: color-mix(in oklch, var(--color-espresso) 98%, transparent);
     }
   }
 
@@ -164,26 +176,6 @@
   to {
     opacity: 1;
     transform: none;
-  }
-}
-
-/* The floating WhatsApp label peeks open once on arrival, then settles to a disc. */
-@keyframes wa-peek {
-  0% {
-    max-width: 0;
-    opacity: 0;
-    padding-right: 0;
-  }
-  12%,
-  70% {
-    max-width: 10rem;
-    opacity: 1;
-    padding-right: 0.25rem;
-  }
-  100% {
-    max-width: 0;
-    opacity: 0;
-    padding-right: 0;
   }
 }
 

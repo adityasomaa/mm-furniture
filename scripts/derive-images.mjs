@@ -71,7 +71,11 @@ for (const [cat, list] of Object.entries(photos)) {
     for (const w of widths) {
       const avif = path.join(OUT, `${p.slug}-${w}.avif`);
       const webp = path.join(OUT, `${p.slug}-${w}.webp`);
-      if (await exists(avif)) continue; // idempotent: safe to re-run
+      // Both, not just the avif. The two are written sequentially, so a run killed
+      // between them leaves the avif on disk and the webp missing; checking only the
+      // avif would then skip the pair forever and ship a permanently broken srcset
+      // entry. (This happened: kursi-11-6-512.webp went missing exactly this way.)
+      if ((await exists(avif)) && (await exists(webp))) continue;
       const img = sharp(png)
         .resize({ width: w, withoutEnlargement: true, kernel: 'lanczos3' })
         .sharpen({ sigma: 0.6 });
@@ -79,12 +83,12 @@ for (const [cat, list] of Object.entries(photos)) {
       await img.clone().webp({ quality: WEBP_Q, smartSubsample: true, alphaQuality: 90 }).toFile(webp);
     }
 
-    // LQIP is composited onto the page's own paper tone rather than left transparent:
-    // it is used as a CSS background behind the real image, and a transparent blur
-    // would show the page through the subject while loading.
+    // LQIP is flattened onto white to match the plate the tiles present it on, rather
+    // than left transparent: it is used as a CSS background behind the real image, and a
+    // transparent blur would show the page through the subject while loading.
     const lqip = await sharp(png)
       .resize({ width: 24 })
-      .flatten({ background: '#fcf9f9' })
+      .flatten({ background: '#ffffff' })
       .webp({ quality: 32 })
       .toBuffer();
 

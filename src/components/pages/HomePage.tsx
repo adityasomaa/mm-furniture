@@ -30,7 +30,7 @@ export function HomePage({ locale }: { locale: Locale }) {
   const wa = waLink(
     company.phones[0].wa,
     locale === 'id'
-      ? 'Halo MM Furniture, saya mau tanya soal furnitur.'
+      ? 'Halo MM Furniture, saya ingin bertanya mengenai produk furnitur Anda.'
       : 'Hello MM Furniture, I would like to ask about your furniture.',
   );
 
@@ -179,7 +179,7 @@ export function HomePage({ locale }: { locale: Locale }) {
                 href={waLink(
                   p.wa,
                   locale === 'id'
-                    ? 'Halo MM Furniture, saya mau tanya soal furnitur.'
+                    ? 'Halo MM Furniture, saya ingin bertanya mengenai produk furnitur Anda.'
                     : 'Hello MM Furniture, I would like to ask about your furniture.',
                 )}
                 target="_blank"

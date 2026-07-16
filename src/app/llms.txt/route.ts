@@ -42,7 +42,7 @@ export function GET() {
 ${categories
   .map(
     (c) =>
-      `- [${c.en} (${c.id})](${absoluteUrl(`/en/catalog/${c.slug}`)}): ${photoCount(c.slug)} catalogue photographs`,
+      `- [${c.en} (${c.id})](${absoluteUrl(`/catalog/${c.slug}`)}): ${photoCount(c.slug)} catalogue photographs`,
   )
   .join('\n')}
 
@@ -56,12 +56,12 @@ ${categories
 
 ## Pages
 
-- [Home, English](${absoluteUrl('/en')})
-- [Home, Indonesian](${absoluteUrl('/')})
-- [Catalogue, English](${absoluteUrl('/en/catalog')})
-- [Catalogue, Indonesian](${absoluteUrl('/catalog')})
-- [About, English](${absoluteUrl('/en/about')})
-- [Contact, English](${absoluteUrl('/en/contact')})
+- [Home, English](${absoluteUrl('/')})
+- [Home, Indonesian](${absoluteUrl('/id')})
+- [Catalogue, English](${absoluteUrl('/catalog')})
+- [Catalogue, Indonesian](${absoluteUrl('/id/catalog')})
+- [About, English](${absoluteUrl('/about')})
+- [Contact, English](${absoluteUrl('/contact')})
 - [Sitemap](${SITE_URL}/sitemap.xml)
 
 ## Questions and answers

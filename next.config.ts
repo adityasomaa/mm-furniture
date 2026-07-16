@@ -42,9 +42,15 @@ const nextConfig: NextConfig = {
       // NOTE: there is deliberately no /blog redirect here. An earlier build folded the
       // legacy (empty) blog into /about; /blog is now a real section and a redirect
       // would swallow it.
+
+      // English moved from /en to the domain root. Anything already linking to /en/*
+      // still lands in the right place.
+      { source: '/en', destination: '/', permanent: true },
+      { source: '/en/:path*', destination: '/:path*', permanent: true },
+
       // Legacy category slug that differed from its label.
       { source: '/catalog/rak-almari', destination: '/catalog/almari', permanent: true },
-      { source: '/en/catalog/rak-almari', destination: '/en/catalog/almari', permanent: true },
+      { source: '/id/catalog/rak-almari', destination: '/id/catalog/almari', permanent: true },
     ];
   },
 };

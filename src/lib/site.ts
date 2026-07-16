@@ -11,9 +11,20 @@
 
 export const SITE_URL = 'https://mm-furniture.vercel.app';
 
-export const LOCALES = ['id', 'en'] as const;
+export const LOCALES = ['en', 'id'] as const;
 export type Locale = (typeof LOCALES)[number];
-export const DEFAULT_LOCALE: Locale = 'id';
+
+/**
+ * English is the default and lives at the domain root; Indonesian lives under /id.
+ *
+ * This inverts the legacy WordPress layout, which had Indonesian at the root and English
+ * at /en. The trade was made deliberately: MM's differentiator is export, and the buyer
+ * who needs convincing reads English. The cost is that the already-indexed Indonesian
+ * URLs (/catalog/sofa, /about) now serve English at the same path, so those pages will
+ * be re-crawled and re-assessed. /en/* is 301'd to the root so nothing that linked to
+ * the English pages breaks.
+ */
+export const DEFAULT_LOCALE: Locale = 'en';
 
 export const company = {
   name: 'MM Furniture Globalindo',
@@ -79,11 +90,11 @@ export const categoryBySlug = (slug: string) => categories.find((c) => c.slug ==
 export const waLink = (waNumber: string, message: string) =>
   `https://wa.me/${waNumber}?text=${encodeURIComponent(message)}`;
 
-/** Canonical path for a route in a given locale. Indonesian lives at the root, matching
- *  the legacy install, so existing indexed URLs keep working without a redirect hop. */
+/** Canonical path for a route in a given locale. English is the default and sits at the
+ *  root; Indonesian is prefixed with /id. */
 export const localePath = (locale: Locale, path = '') => {
   const clean = path.replace(/^\/+/, '');
-  const base = locale === 'en' ? '/en' : '';
+  const base = locale === 'id' ? '/id' : '';
   return clean ? `${base}/${clean}` : base || '/';
 };
 

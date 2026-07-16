@@ -7,7 +7,7 @@ import { TransitionLink } from './transition/TransitionLink';
 export function SiteFooter({ locale }: { locale: Locale }) {
   const wa = waLink(
     company.phones[0].wa,
-    locale === 'id' ? 'Halo MM Furniture, saya mau tanya.' : 'Hello MM Furniture, I have a question.',
+    locale === 'id' ? 'Halo MM Furniture, saya ingin bertanya.' : 'Hello MM Furniture, I have a question.',
   );
 
   return (
@@ -39,7 +39,7 @@ export function SiteFooter({ locale }: { locale: Locale }) {
               {nav.map((item) => (
                 <li key={item.key}>
                   <TransitionLink
-                    href={item.href[locale]}
+                    href={localePath(locale, item.path)}
                     className="text-sm text-sand transition-colors duration-200 hover:text-paper"
                   >
                     {item.label[locale]}
@@ -49,7 +49,7 @@ export function SiteFooter({ locale }: { locale: Locale }) {
               {legalNav.map((item) => (
                 <li key={item.key}>
                   <TransitionLink
-                    href={item.href[locale]}
+                    href={localePath(locale, item.path)}
                     className="text-sm text-sand/80 transition-colors duration-200 hover:text-paper"
                   >
                     {item.label[locale]}
