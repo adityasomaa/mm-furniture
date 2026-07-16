@@ -10,7 +10,11 @@ export function AboutPage({ locale }: { locale: Locale }) {
 
   return (
     <>
-      <Section tone="dark" className="!pb-0">
+      {/* The dark band keeps its full bottom padding. It used to run `!pb-0`, which
+          pinned the photograph's bottom edge exactly to the boundary with the section
+          below: the rounded corners had nowhere to land and the panel read as clipped
+          rather than placed. */}
+      <Section tone="dark">
         <div className="grid gap-10 lg:grid-cols-[1.2fr_1fr] lg:gap-20">
           <div>
             <Kicker onDark>{company.tagline[locale]}</Kicker>
@@ -19,7 +23,13 @@ export function AboutPage({ locale }: { locale: Locale }) {
           <p className="prose-body self-end text-lede text-sand">{about.lede[locale]}</p>
         </div>
 
-        <div className="relative mt-16 aspect-[16/7] w-full overflow-hidden rounded-2xl bg-shell">
+        {/* White, not shell. Every catalogue plate is a cutout of a piece shot on a white
+            studio backdrop, and the key cannot reach backdrop that the subject encloses,
+            so a plate can carry opaque near-white islands with a torn flood-fill edge.
+            Against the pink shell those read as a rip in the photograph; against white
+            they are simply invisible. This is why every surface that holds a plate is
+            white. See [[mm-furniture-photo-constraints]] and scripts/lib-cutout.mjs. */}
+        <div className="relative mt-16 aspect-[16/7] w-full overflow-hidden rounded-2xl bg-white">
           {shot && (
             <CatalogImage
               shot={shot}
@@ -30,7 +40,9 @@ export function AboutPage({ locale }: { locale: Locale }) {
               }
               sizes="100vw"
               priority
-              className="scale-90 object-contain"
+              // Padding on the image, not the box: `fill` makes it inset-0, and
+              // object-contain fits the plate to the content box inside that padding.
+              className="object-contain p-8 sm:p-12"
             />
           )}
         </div>

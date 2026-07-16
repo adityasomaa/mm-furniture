@@ -128,14 +128,18 @@ export function ProductGallery({ product, locale }: { product: Product; locale: 
               </button>
             </div>
 
-            <div className="relative min-h-0 flex-1">
+            {/* The plate sits on white even here, where the surround is near-black.
+                Dropping a cutout straight onto espresso is the worst case for this: any
+                backdrop the key could not reach is opaque white, so it would glow against
+                the dark. A white sheet is also how you would actually inspect a piece. */}
+            <div className="relative mx-4 min-h-0 flex-1 overflow-hidden rounded-xl bg-white sm:mx-6">
               <CatalogImage
                 key={shots[active].slug}
                 shot={shots[active]}
                 alt={alt(active)}
                 sizes="100vw"
                 priority
-                className="object-contain p-4"
+                className="object-contain p-4 sm:p-8"
               />
             </div>
 

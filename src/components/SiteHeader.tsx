@@ -110,13 +110,19 @@ export function SiteHeader({ locale }: { locale: Locale }) {
 
         {/* ── Desktop nav ─────────────────────────────────────────────────── */}
         <nav aria-label="Primary" className="ml-auto hidden items-center lg:flex">
-          <ul className="flex items-center gap-8">
+          {/* `items-stretch`, not `items-center`. The catalogue item is a <button> laid
+              out as a flex box, while the rest are inline anchors whose box is the glyph
+              height inside a taller line box. Centring boxes of two different heights
+              left the catalogue label sitting a hair above its neighbours. Every item
+              now declares the same box (flex, items-center) and fills the same row, so
+              the labels share one centre line by construction. */}
+          <ul className="flex items-stretch gap-8">
             {visibleNav().map((item) =>
               item.key === 'catalog' ? (
                 <li
                   key={item.key}
                   ref={catRef}
-                  className="relative"
+                  className="relative flex items-center"
                   onPointerEnter={openCat}
                   onPointerLeave={closeCat}
                 >
@@ -172,10 +178,10 @@ export function SiteHeader({ locale }: { locale: Locale }) {
                   </div>
                 </li>
               ) : (
-                <li key={item.key}>
+                <li key={item.key} className="flex items-center">
                   <TransitionLink
                     href={localePath(locale, item.path)}
-                    className={`tag transition-colors duration-300 ${link}`}
+                    className={`tag flex items-center transition-colors duration-300 ${link}`}
                   >
                     {item.label[locale]}
                   </TransitionLink>
