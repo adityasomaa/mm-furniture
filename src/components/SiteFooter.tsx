@@ -1,5 +1,5 @@
 import { company, locations, waLink, localePath, type Locale } from '@/lib/site';
-import { nav, legalNav, ui, contact as contactCopy } from '@/lib/content';
+import { visibleNav, legalNav, ui, contact as contactCopy } from '@/lib/content';
 import { rooms, roomCount } from '@/lib/catalog';
 import { Monogram } from './Wordmark';
 import { TransitionLink } from './transition/TransitionLink';
@@ -36,7 +36,7 @@ export function SiteFooter({ locale }: { locale: Locale }) {
           <nav aria-label={locale === 'id' ? 'Navigasi footer' : 'Footer navigation'}>
             <p className="tag text-paper/50">{locale === 'id' ? 'Navigasi' : 'Navigate'}</p>
             <ul className="mt-4 space-y-2.5">
-              {nav.map((item) => (
+              {visibleNav().map((item) => (
                 <li key={item.key}>
                   <TransitionLink
                     href={localePath(locale, item.path)}

@@ -1,4 +1,5 @@
 import type { Locale } from './site';
+import { hasProjects } from './projects';
 
 /**
  * All user-facing copy, keyed by locale so the two languages can never drift apart.
@@ -9,15 +10,24 @@ import type { Locale } from './site';
  */
 export type L<T = string> = Record<Locale, T>;
 
-/** Hrefs are built from `localePath`, so the English-at-root / Indonesian-at-/id split
- *  is decided in exactly one place (site.ts) rather than restated per link. */
-export const nav: { key: string; path: string; label: L }[] = [
+/**
+ * Hrefs are built from `localePath`, so the English-at-root / Indonesian-at-/id split
+ * is decided in exactly one place (site.ts) rather than restated per link.
+ *
+ * `gated` marks a link whose route only exists once its data does. The header and footer
+ * filter on it, so nothing in the chrome can point at a 404.
+ */
+export const nav: { key: string; path: string; label: L; gated?: () => boolean }[] = [
   { key: 'home', path: '', label: { id: 'Beranda', en: 'Home' } },
   { key: 'about', path: 'about', label: { id: 'Tentang', en: 'About' } },
   { key: 'catalog', path: 'catalog', label: { id: 'Katalog', en: 'Catalogue' } },
+  { key: 'projects', path: 'projects', label: { id: 'Proyek', en: 'Projects' }, gated: hasProjects },
   { key: 'blog', path: 'blog', label: { id: 'Blog', en: 'Blog' } },
   { key: 'contact', path: 'contact', label: { id: 'Kontak', en: 'Contact' } },
 ];
+
+/** The nav as actually rendered: gated entries drop out until their data lands. */
+export const visibleNav = () => nav.filter((n) => !n.gated || n.gated());
 
 /** Footer-only routes. Kept out of `nav` so the header stays to five links. */
 export const legalNav: { key: string; path: string; label: L }[] = [
@@ -251,6 +261,37 @@ export const contact = {
  * FAQPage JSON-LD for search and AI answer engines. Answers are written to be quotable
  * standalone, because an answer engine will lift one without its surrounding context.
  */
+/**
+ * Projects copy. The section is dark until the owner supplies photographs; see
+ * `@/lib/projects`. Deliberately says nothing about how many projects there are or where
+ * they were: the entries carry that, and the page is only reachable once they exist.
+ */
+export const projectsCopy = {
+  metaTitle: {
+    id: 'Proyek — Interior dan Fit-Out oleh MM Furniture Globalindo, Bali',
+    en: 'Projects — Interiors and Fit-Out by MM Furniture Globalindo, Bali',
+  },
+  metaDescription: {
+    id: 'Proyek interior dan fit-out yang dikerjakan MM Furniture Globalindo di Bali: vila, kantor, kafe, dan ruang komersial. Dari desain hingga terpasang di lokasi.',
+    en: 'Interior and fit-out projects delivered by MM Furniture Globalindo in Bali: villas, offices, cafes and commercial spaces. From drawings through to installed on site.',
+  },
+  kicker: { id: 'Proyek', en: 'Projects' },
+  title: { id: 'Ruangan yang sudah kami kerjakan.', en: 'Rooms we have finished.' },
+  lede: {
+    id: 'Bukan hanya furnitur satuan. Ini pekerjaan interior yang kami tangani dari gambar kerja sampai semuanya terpasang di lokasi.',
+    en: 'Not just individual pieces. These are interiors we took from the drawings through to installed on site.',
+  },
+  ctaTitle: { id: 'Punya ruang yang perlu dikerjakan?', en: 'Have a space that needs doing?' },
+  ctaBody: {
+    id: 'Kirimkan denah, foto, atau sekadar ukuran ruangannya. Kami balas dengan ruang lingkup pekerjaan dan perkiraan biayanya.',
+    en: 'Send a floor plan, a photo, or just the room dimensions. We come back with a scope and an estimate.',
+  },
+  photoAlt: {
+    id: (title: string, where: string) => `${title} di ${where}, dikerjakan oleh MM Furniture Globalindo`,
+    en: (title: string, where: string) => `${title} in ${where}, delivered by MM Furniture Globalindo`,
+  },
+} as const;
+
 export const faq: { q: L; a: L }[] = [
   {
     q: { id: 'Apa itu MM Furniture Globalindo?', en: 'What is MM Furniture Globalindo?' },

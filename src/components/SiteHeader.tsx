@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { company, localePath, type Locale } from '@/lib/site';
-import { nav, ui } from '@/lib/content';
+import { visibleNav, ui } from '@/lib/content';
 import { rooms } from '@/lib/rooms';
 import { countFor } from '@/lib/room-counts';
 import { useScrolledPast } from '@/lib/browser-state';
@@ -111,7 +111,7 @@ export function SiteHeader({ locale }: { locale: Locale }) {
         {/* ── Desktop nav ─────────────────────────────────────────────────── */}
         <nav aria-label="Primary" className="ml-auto hidden items-center lg:flex">
           <ul className="flex items-center gap-8">
-            {nav.map((item) =>
+            {visibleNav().map((item) =>
               item.key === 'catalog' ? (
                 <li
                   key={item.key}
@@ -270,7 +270,7 @@ export function SiteHeader({ locale }: { locale: Locale }) {
       >
         <div className="max-h-[85vh] overflow-y-auto px-5 pb-8 pt-2 sm:px-8">
           <ul className="divide-y divide-linen/70">
-            {nav.map((item) =>
+            {visibleNav().map((item) =>
               item.key === 'catalog' ? (
                 <li key={item.key} className="py-1">
                   <details className="group">

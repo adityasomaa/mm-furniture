@@ -39,20 +39,48 @@ the Indonesian surface is a retail surface. Same catalog, different intent.
 - **Email:** info@mmfurniture.com, mmfurniture71@gmail.com
 - **Phone / WhatsApp:** +62 878-6165-4856, +62 878-6134-0445
 - **Instagram:** @mmfurniture71 · **Facebook:** mmfurnitureindonesia
-- **Catalog categories (7):** sofa, desk, bed, almari (storage), set meja (table sets), meja (tables), kursi (chairs)
 - **Services:** interior design, goods & service procurement, office/commercial fit-out
 - **Custom orders:** accepted
 - **Stated values:** professional expertise, reliable timelines, detailed project evaluation,
   aesthetic + functional quality, sustainability, mutually beneficial partnership
 
+### The catalogue (owner's own database, supplied 2026-07-16)
+
+Supersedes the seven invented type-categories the first build used to organise 240
+anonymous scraped photos. Source: `Template_Pemetaan_Katalog_Furniture.xlsx`, parsed by
+`scripts/extract-catalog.py` into `src/data/products.json`.
+
+- **227 products**, each with a name, room, material, description, and 767 photographs
+  between them.
+- **6 rooms**, the owner's own Kategori column: Ruang Tamu (45), Ruang Makan (96),
+  Kamar Tidur (62), Bar (16), Outdoor (6), Vanity (2).
+- **Dimensions:** length × width × height in cm, present on 221 of 227.
+- **Materials:** stated per product. Teak (208), Cushion (42), Rattan (38), Iron (12),
+  Suar wood (10), woven cord (8), glass (6), leather (4), mendong grass (3), unspecified
+  wood (3), marble (2), resin (2), parasol canvas (2).
+
+Owner decisions on the two ambiguous points, taken 2026-07-16: 18 rows with a blank
+Kategori resolve as Buffet → Ruang Makan and Partisi → Ruang Tamu; the catalogue browses
+by room rather than by furniture type.
+
 ## `[UNVERIFIED]` — do not put in copy as fact
 
 Year founded · employee count · number of projects delivered · countries exported to ·
-certifications (FSC/SVLK) · lead times · MOQ · prices · client names · timber species.
+certifications (FSC/SVLK) · lead times · MOQ · **prices** · client names.
 
-The legacy site names none of these. Inventing them would be fabricating credentials
-for a real business. Where the design wants a number, either omit the section or use a
-verified count (e.g. actual photo counts per category).
+Neither the legacy site nor the owner's database names any of these. Inventing them
+would be fabricating credentials for a real business. Where the design wants a number,
+either omit the section or use one derived from the database (product counts per room,
+material tallies).
+
+Price deserves its own note, because it is the one a catalogue is expected to answer.
+The spreadsheet has a Harga column and it is **blank on all 227 rows**. The site
+therefore states no price anywhere, and says plainly on every product page why not. Do
+not fill this from a marketplace listing, a competitor, or arithmetic.
+
+Timber species has moved off this list: it was unverifiable when all we had were
+photographs, but the owner now states the material for every product. Use `p.material`
+verbatim; do not generalise one product's timber to the catalogue.
 
 ## Tone
 
