@@ -21,9 +21,9 @@ import { SiteHeader } from './SiteHeader';
  * hide.
  *
  * `footer` arrives as a prop rather than being imported here. It is a server component
- * that reads the 240-photo manifest for its category counts; importing it into this
- * client boundary would drag that whole manifest into the browser bundle. Passed as a
- * prop, it stays server-rendered.
+ * that reads the full product manifest for its room counts; importing it into this
+ * client boundary would drag all 227 products into the browser bundle. Passed as a prop,
+ * it stays server-rendered.
  */
 export function AppChrome({
   locale,

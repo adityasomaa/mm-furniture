@@ -1,4 +1,5 @@
-import { categories, type Locale } from '@/lib/site';
+import type { Locale } from '@/lib/site';
+import { rooms } from '@/lib/rooms';
 
 /**
  * Category ticker under the hero.
@@ -25,7 +26,7 @@ function Track({ items, hidden }: { items: string[]; hidden?: boolean }) {
 }
 
 export function Marquee({ locale }: { locale: Locale }) {
-  const items = [...categories.map((c) => c[locale]), locale === 'id' ? 'Custom' : 'Custom work'];
+  const items = [...rooms.map((r) => r.label[locale]), locale === 'id' ? 'Custom' : 'Custom work'];
 
   return (
     <div className="relative overflow-hidden border-y border-linen bg-shell/60 py-4">

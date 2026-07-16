@@ -2,9 +2,10 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { usePathname } from 'next/navigation';
-import { categories, company, localePath, type Locale } from '@/lib/site';
+import { company, localePath, type Locale } from '@/lib/site';
 import { nav, ui } from '@/lib/content';
-import { countFor } from '@/lib/counts';
+import { rooms } from '@/lib/rooms';
+import { countFor } from '@/lib/room-counts';
 import { useScrolledPast } from '@/lib/browser-state';
 import { Wordmark } from './Wordmark';
 import { TransitionLink } from './transition/TransitionLink';
@@ -149,14 +150,14 @@ export function SiteHeader({ locale }: { locale: Locale }) {
                     ].join(' ')}
                   >
                     <ul className="grid grid-cols-2 gap-1">
-                      {categories.map((c) => (
-                        <li key={c.slug}>
+                      {rooms.map((r) => (
+                        <li key={r.slug}>
                           <TransitionLink
-                            href={localePath(locale, `catalog/${c.slug}`)}
+                            href={localePath(locale, `catalog/${r.slug}`)}
                             className="flex items-center justify-between rounded-sm px-3.5 py-3 text-sm text-bark transition-colors duration-200 hover:bg-linen/60 hover:text-brand"
                           >
-                            {c[locale]}
-                            <span className="text-[0.65rem] tabular-nums text-clay/70">{countFor(c.slug)}</span>
+                            {r.label[locale]}
+                            <span className="text-[0.65rem] tabular-nums text-clay/70">{countFor(r.slug)}</span>
                           </TransitionLink>
                         </li>
                       ))}
@@ -165,7 +166,7 @@ export function SiteHeader({ locale }: { locale: Locale }) {
                       href={localePath(locale, 'catalog')}
                       className="tag mt-1.5 flex items-center justify-center gap-2 rounded-sm bg-brand px-3.5 py-3 text-paper transition-colors duration-200 hover:bg-espresso"
                     >
-                      {ui.allCategories[locale]}
+                      {ui.rooms[locale]}
                       <span aria-hidden="true">→</span>
                     </TransitionLink>
                   </div>
@@ -215,7 +216,7 @@ export function SiteHeader({ locale }: { locale: Locale }) {
 
             <button
               type="button"
-              onClick={openEnquiry}
+              onClick={() => openEnquiry()}
               className="tag rounded-full bg-brand px-5 py-2.5 text-paper transition-all duration-300 hover:bg-espresso hover:shadow-[0_8px_24px_-8px_rgba(92,58,49,0.6)]"
             >
               {ui.enquire[locale]}
@@ -282,14 +283,14 @@ export function SiteHeader({ locale }: { locale: Locale }) {
                       </span>
                     </summary>
                     <ul className="grid grid-cols-2 gap-1.5 pb-4 pt-1">
-                      {categories.map((c) => (
-                        <li key={c.slug}>
+                      {rooms.map((r) => (
+                        <li key={r.slug}>
                           <TransitionLink
-                            href={localePath(locale, `catalog/${c.slug}`)}
+                            href={localePath(locale, `catalog/${r.slug}`)}
                             className="flex items-center justify-between rounded-sm bg-shell px-4 py-3 text-sm text-bark"
                           >
-                            {c[locale]}
-                            <span className="text-[0.65rem] tabular-nums text-clay/70">{countFor(c.slug)}</span>
+                            {r.label[locale]}
+                            <span className="text-[0.65rem] tabular-nums text-clay/70">{countFor(r.slug)}</span>
                           </TransitionLink>
                         </li>
                       ))}

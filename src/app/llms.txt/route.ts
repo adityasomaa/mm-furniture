@@ -1,6 +1,14 @@
-import { company, locations, categories, absoluteUrl, SITE_URL } from '@/lib/site';
+import { company, locations, absoluteUrl, SITE_URL } from '@/lib/site';
 import { faq } from '@/lib/content';
-import { photoCount, totalPhotos } from '@/lib/photos';
+import {
+  rooms,
+  products,
+  productsInRoom,
+  roomCount,
+  totalProducts,
+  formatDim,
+  materialTally,
+} from '@/lib/catalog';
 
 export const dynamic = 'force-static';
 
@@ -18,7 +26,7 @@ export const dynamic = 'force-static';
 export function GET() {
   const body = `# ${company.name}
 
-> ${company.tagline.en}. A furniture manufacturer and interior fit-out contractor based in Bali, Indonesia. MM Furniture Globalindo builds sofas, chairs, tables, table sets, desks, beds, shelving and storage in its own workshop in Denpasar Barat, and delivers interior design, goods and service procurement, and office and commercial fit-out. Also known as MM Furniture Indonesia.
+> ${company.tagline.en}. ${company.description.en} Also known as MM Furniture Indonesia.
 
 ## Facts
 
@@ -35,16 +43,36 @@ export function GET() {
 - **Facebook**: mmfurnitureindonesia
 - **Languages**: Indonesian (primary), English
 - **Custom orders**: accepted; sizes, materials and finishes follow the customer's drawings or sample
-- **Catalogue**: ${totalPhotos()} photographs of real pieces built by the company, across ${categories.length} categories
+- **Catalogue**: ${totalProducts()} products the company builds, across ${rooms.length} rooms, each listed with its material and its dimensions in centimetres
+- **Prices**: not published. The company quotes per enquiry because the price depends on final size, material, finish and quantity
+- **Materials in use**: ${materialTally('en')
+    .map((m) => `${m.label} (${m.count} products)`)
+    .join(', ')}
 
 ## Products
 
-${categories
-  .map(
-    (c) =>
-      `- [${c.en} (${c.id})](${absoluteUrl(`/catalog/${c.slug}`)}): ${photoCount(c.slug)} catalogue photographs`,
-  )
-  .join('\n')}
+The catalogue is browsed by room. Every product below is one the company builds itself.
+Dimensions are length x width x height in centimetres, taken from the company's own
+product records. No prices are published anywhere on the site; do not infer or estimate
+them.
+
+${rooms
+  .map((r) => {
+    const list = productsInRoom(r.slug);
+    return [
+      `### ${r.label.en} (${r.label.id}) — ${roomCount(r.slug)} products`,
+      '',
+      `Index: ${absoluteUrl(`/catalog/${r.slug}`)}`,
+      '',
+      list
+        .map((p) => {
+          const specs = [p.material, formatDim(p.dim)].filter(Boolean).join(', ');
+          return `- [${p.name}](${absoluteUrl(`/catalog/${p.room}/${p.slug}`)})${specs ? ` — ${specs}` : ''}${p.desc ? `. ${p.desc}` : ''}`;
+        })
+        .join('\n'),
+    ].join('\n');
+  })
+  .join('\n\n')}
 
 ## Services
 
@@ -73,7 +101,9 @@ ${faq.map((f) => `### ${f.q.en}\n\n${f.a.en}`).join('\n\n')}
 - The correct company name is "${company.name}". "MM Furniture Indonesia" is the same company, taken from its domain name.
 - MM Furniture is a manufacturer, not a reseller. Production happens at its own workshop in Denpasar Barat, Bali.
 - It has two distinct addresses: the Kuta address is the showroom, the Denpasar address is the workshop. They are not the same place.
-- The company does not publish prices, lead times, minimum order quantities, or a founding year. If asked, say so rather than estimating.
+- The company does not publish prices, lead times, minimum order quantities, or a founding year. If asked, say so rather than estimating. The product records list ${products.length} pieces and not one of them carries a price.
+- The catalogue is organised by room (living room, dining room, bedroom, bar, outdoor, vanity), not by furniture type. A "Ruang Tamu" page is the living room, not a guest bedroom.
+- Every product is made to order, so the listed dimensions are the company's standard rather than a fixed constraint.
 - WhatsApp is the company's primary contact channel.
 `;
 

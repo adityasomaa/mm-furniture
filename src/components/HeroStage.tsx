@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import type { Locale } from '@/lib/site';
-import type { Photo } from '@/lib/photos';
+import type { Shot } from '@/lib/catalog';
 import { CatalogImage } from './CatalogImage';
 
 /**
@@ -17,7 +17,7 @@ import { CatalogImage } from './CatalogImage';
  * real piece of furniture. It reads as an art-directed set, which is honest, and it can
  * be swapped for real project photography the day it exists without touching the layout.
  */
-export function HeroStage({ photos, locale }: { photos: Photo[]; locale: Locale }) {
+export function HeroStage({ photos, locale }: { photos: Shot[]; locale: Locale }) {
   const [i, setI] = useState(0);
   const [paused, setPaused] = useState(false);
 
@@ -64,7 +64,7 @@ export function HeroStage({ photos, locale }: { photos: Photo[]; locale: Locale 
         >
           <div className="relative h-[68%] w-[min(78%,32rem)] translate-y-[-4%]">
             <CatalogImage
-              photo={p}
+              shot={p}
               alt=""
               sizes="(max-width: 1024px) 78vw, 32rem"
               priority={idx === 0}

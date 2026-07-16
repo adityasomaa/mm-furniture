@@ -16,7 +16,8 @@ export type Post = {
   slug: string;
   date: string; // ISO, used for dateline + JSON-LD
   readMinutes: number;
-  cover: { cat: string; index: number }; // pulled from the catalogue, never stock
+  /** Slug of a real catalogue product. Covers come off our own work, never stock. */
+  cover: string;
   title: L;
   excerpt: L;
   /** Rendered as a sequence of blocks so the copy stays free of raw HTML. */
@@ -28,7 +29,7 @@ export const posts: Post[] = [
     slug: 'memilih-kayu-furnitur-bali',
     date: '2026-05-12',
     readMinutes: 4,
-    cover: { cat: 'meja', index: 5 },
+    cover: 'meja-makan-dt15',
     title: {
       id: 'Memilih kayu untuk furnitur di iklim Bali',
       en: 'Choosing timber for furniture in a Bali climate',
@@ -98,7 +99,7 @@ export const posts: Post[] = [
     slug: 'proses-custom-furniture',
     date: '2026-06-03',
     readMinutes: 3,
-    cover: { cat: 'almari', index: 2 },
+    cover: 'lemari-3-pintu-swing-laci',
     title: {
       id: 'Cara kerja pesanan custom, dari foto sampai barang jadi',
       en: 'How a custom order works, from photo to finished piece',
@@ -162,7 +163,7 @@ export const posts: Post[] = [
     slug: 'merawat-furnitur-kayu',
     date: '2026-06-28',
     readMinutes: 3,
-    cover: { cat: 'kursi', index: 12 },
+    cover: 'kursi-makan-anyaman-kulit',
     title: {
       id: 'Merawat furnitur kayu dan rotan supaya tahan lama',
       en: 'Looking after timber and rattan so it lasts',

@@ -12,14 +12,23 @@ export function EnquireButton({
   locale,
   className,
   label,
+  productName,
+  productCode,
 }: {
   locale: Locale;
   className?: string;
   label?: string;
+  /** When set, the sheet opens already knowing which piece the visitor is looking at. */
+  productName?: string;
+  productCode?: string;
 }) {
   const { open } = useEnquiry();
   return (
-    <button type="button" onClick={open} className={className}>
+    <button
+      type="button"
+      onClick={() => open(productName ? { name: productName, code: productCode } : undefined)}
+      className={className}
+    >
       {label ?? ui.enquire[locale]}
     </button>
   );

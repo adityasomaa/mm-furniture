@@ -1,6 +1,6 @@
-import { company, locations, categories, waLink, localePath, type Locale } from '@/lib/site';
+import { company, locations, waLink, localePath, type Locale } from '@/lib/site';
 import { nav, legalNav, ui, contact as contactCopy } from '@/lib/content';
-import { photoCount } from '@/lib/photos';
+import { rooms, roomCount } from '@/lib/catalog';
 import { Monogram } from './Wordmark';
 import { TransitionLink } from './transition/TransitionLink';
 
@@ -59,17 +59,17 @@ export function SiteFooter({ locale }: { locale: Locale }) {
             </ul>
           </nav>
 
-          <nav aria-label={ui.allCategories[locale]}>
-            <p className="tag text-paper/50">{ui.allCategories[locale]}</p>
+          <nav aria-label={ui.rooms[locale]}>
+            <p className="tag text-paper/50">{ui.rooms[locale]}</p>
             <ul className="mt-4 space-y-2.5">
-              {categories.map((c) => (
-                <li key={c.slug}>
+              {rooms.map((r) => (
+                <li key={r.slug}>
                   <TransitionLink
-                    href={localePath(locale, `catalog/${c.slug}`)}
+                    href={localePath(locale, `catalog/${r.slug}`)}
                     className="group flex items-center gap-2 text-sm text-sand transition-colors duration-200 hover:text-paper"
                   >
-                    {c[locale]}
-                    <span className="text-[0.65rem] tabular-nums text-sand/50">{photoCount(c.slug)}</span>
+                    {r.label[locale]}
+                    <span className="text-[0.65rem] tabular-nums text-sand/50">{roomCount(r.slug)}</span>
                   </TransitionLink>
                 </li>
               ))}

@@ -1,6 +1,14 @@
-import { company, locations, categories, absoluteUrl, localePath, type Locale } from './site';
+import { company, locations, absoluteUrl, localePath, type Locale } from './site';
 import { faq } from './content';
-import { photoUrl, coverFor, photosFor, type Photo } from './photos';
+import {
+  shotUrl,
+  formatDim,
+  rooms,
+  productsInRoom,
+  productBySlug,
+  roomCover,
+  type Product,
+} from './catalog';
 
 /**
  * Representative image for the business.
@@ -11,8 +19,8 @@ import { photoUrl, coverFor, photosFor, type Photo } from './photos';
  * actual work is both valid and a better answer to "show me this company".
  */
 const businessImage = () => {
-  const cover = coverFor('sofa') ?? coverFor('kursi');
-  return cover ? absoluteUrl(photoUrl(cover, 1400)) : absoluteUrl('/brand/icon-512.png');
+  const cover = roomCover('ruang-tamu') ?? roomCover('ruang-makan');
+  return cover ? absoluteUrl(shotUrl(cover, 1500)) : absoluteUrl('/brand/icon-512.png');
 };
 
 /**
@@ -57,8 +65,7 @@ export const organizationNode = () => ({
   },
   image: businessImage(),
   slogan: company.tagline.en,
-  description:
-    'Furniture manufacturer and interior fit-out contractor based in Bali, Indonesia. Builds sofas, chairs, tables, table sets, desks, beds, shelving and storage in its own workshop in Denpasar Barat, and delivers interior design, procurement and commercial fit-out.',
+  description: company.description.en,
   email: company.email,
   telephone: company.phones.map((p) => p.e164),
   address: postalAddress(locations[0]),
@@ -69,9 +76,11 @@ export const organizationNode = () => ({
     { '@type': 'Country', name: 'Indonesia' },
   ],
   knowsLanguage: ['id-ID', 'en'],
-  makesOffer: categories.map((c) => ({
+  // One offer per room rather than per product: 227 Offer nodes on every page would
+  // bloat the graph, and each room page carries its own ItemList of the real thing.
+  makesOffer: rooms.map((r) => ({
     '@type': 'Offer',
-    itemOffered: { '@type': 'Product', name: c.en, category: 'Furniture' },
+    itemOffered: { '@type': 'Product', name: `${r.label.en} furniture`, category: 'Furniture' },
   })),
 });
 
@@ -132,36 +141,67 @@ export const faqNode = (locale: Locale) => ({
 });
 
 /**
- * A category is modelled as an ItemList of images rather than a list of Products.
- * There are no SKUs, no prices and no per-item names on the source catalogue, and
- * inventing them to satisfy Product schema would be fabricating offers. An ItemList of
- * real photographs is the honest shape.
+ * A product node, carrying what the owner's database actually holds.
+ *
+ * The old catalogue could only honestly be an ItemList of photographs: 240 scraped
+ * images with no names, no sizes and no descriptions, so a Product node would have been
+ * inventing the product. This data has all three, so the real shape is now available.
+ *
+ * Still no `offers`. Price is the one column the owner left blank on all 227 rows, and
+ * an Offer without a price is worth less than no Offer at all: Google reads a
+ * price-less Offer as a broken listing rather than as "ask us".
  */
-export const categoryListNode = (locale: Locale, slug: string, label: string, photos: Photo[]) => ({
-  '@type': 'CollectionPage',
-  '@id': absoluteUrl(`${localePath(locale, `catalog/${slug}`)}#collection`),
-  name: label,
-  isPartOf: { '@id': SITE_ID },
-  about: { '@id': ORG_ID },
-  inLanguage: locale === 'id' ? 'id-ID' : 'en',
-  mainEntity: {
-    '@type': 'ItemList',
-    numberOfItems: photos.length,
-    itemListElement: photos.slice(0, 40).map((p, i) => ({
-      '@type': 'ListItem',
-      position: i + 1,
-      item: {
-        '@type': 'Product',
-        name: `${label} — ${company.short} #${String(i + 1).padStart(3, '0')}`,
-        category: label,
-        image: absoluteUrl(photoUrl(p, 1400)),
-        brand: { '@id': ORG_ID },
-        manufacturer: { '@id': ORG_ID },
-        isCustomizable: true,
-      },
-    })),
-  },
-});
+export const productNode = (locale: Locale, p: Product) => {
+  const path = localePath(locale, `catalog/${p.room}/${p.slug}`);
+  const dim = formatDim(p.dim);
+  return {
+    '@type': 'Product',
+    '@id': absoluteUrl(`${path}#product`),
+    name: p.name,
+    sku: p.id,
+    url: absoluteUrl(path),
+    image: p.shots.map((sh) => absoluteUrl(shotUrl(sh, 1500))),
+    ...(p.desc ? { description: p.desc } : {}),
+    ...(p.material ? { material: p.material } : {}),
+    // Verbatim from the sheet's LxWxH column, so the graph and the spec table can
+    // never disagree. Six rows have no dimensions and get no properties here.
+    ...(p.dim
+      ? {
+          depth: { '@type': 'QuantitativeValue', value: p.dim.l, unitCode: 'CMT' },
+          width: { '@type': 'QuantitativeValue', value: p.dim.w, unitCode: 'CMT' },
+          height: { '@type': 'QuantitativeValue', value: p.dim.h, unitCode: 'CMT' },
+        }
+      : {}),
+    ...(dim ? { additionalProperty: { '@type': 'PropertyValue', name: 'Dimensions', value: dim } } : {}),
+    category: rooms.find((r) => r.slug === p.room)?.label[locale] ?? p.room,
+    brand: { '@id': ORG_ID },
+    manufacturer: { '@id': ORG_ID },
+    isCustomizable: true,
+  };
+};
+
+/** A room page: a CollectionPage wrapping an ItemList that points at real product URLs. */
+export const roomListNode = (locale: Locale, slug: string, label: string) => {
+  const list = productsInRoom(slug);
+  return {
+    '@type': 'CollectionPage',
+    '@id': absoluteUrl(`${localePath(locale, `catalog/${slug}`)}#collection`),
+    name: label,
+    isPartOf: { '@id': SITE_ID },
+    about: { '@id': ORG_ID },
+    inLanguage: locale === 'id' ? 'id-ID' : 'en',
+    mainEntity: {
+      '@type': 'ItemList',
+      numberOfItems: list.length,
+      itemListElement: list.map((p, i) => ({
+        '@type': 'ListItem',
+        position: i + 1,
+        name: p.name,
+        url: absoluteUrl(localePath(locale, `catalog/${p.room}/${p.slug}`)),
+      })),
+    },
+  };
+};
 
 /**
  * Blog post node.
@@ -177,10 +217,10 @@ export const articleNode = (
     date: string;
     title: Record<Locale, string>;
     excerpt: Record<Locale, string>;
-    cover: { cat: string; index: number };
+    cover: string;
   },
 ) => {
-  const cover = photosFor(post.cover.cat)[post.cover.index] ?? photosFor(post.cover.cat)[0];
+  const cover = productBySlug(post.cover)?.shots[0];
   const path = localePath(locale, `blog/${post.slug}`);
   return {
     '@type': 'BlogPosting',
@@ -194,7 +234,7 @@ export const articleNode = (
     publisher: { '@id': ORG_ID },
     isPartOf: { '@id': SITE_ID },
     mainEntityOfPage: absoluteUrl(path),
-    image: cover ? absoluteUrl(photoUrl(cover, 1400)) : businessImage(),
+    image: cover ? absoluteUrl(shotUrl(cover, 1500)) : businessImage(),
   };
 };
 

@@ -4,7 +4,7 @@ import { BlogPostPage } from '@/components/pages/BlogPages';
 import { pageMeta } from '@/lib/meta';
 import { posts, postBySlug } from '@/lib/posts';
 import { absoluteUrl } from '@/lib/site';
-import { photosFor, photoUrl } from '@/lib/photos';
+import { productBySlug, shotUrl } from '@/lib/catalog';
 import { JsonLd } from '@/components/JsonLd';
 import { organizationNode, breadcrumbNode, articleNode } from '@/lib/schema';
 
@@ -20,13 +20,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const post = postBySlug(slug);
   if (!post) return {};
-  const cover = photosFor(post.cover.cat)[post.cover.index] ?? photosFor(post.cover.cat)[0];
+  const cover = productBySlug(post.cover)?.shots[0];
   return pageMeta({
     locale: 'id',
     path: `blog/${slug}`,
     title: post.title.id,
     description: post.excerpt.id,
-    images: cover ? [absoluteUrl(photoUrl(cover, 1400))] : undefined,
+    images: cover ? [absoluteUrl(shotUrl(cover, 1500))] : undefined,
   });
 }
 

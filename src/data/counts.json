@@ -1,10 +1,10 @@
 {
- "sofa": 39,
- "desk": 33,
- "bed": 29,
- "almari": 31,
- "set-meja": 33,
- "meja": 29,
- "kursi": 46,
- "total": 240
+ "kamar-tidur": 62,
+ "ruang-makan": 96,
+ "ruang-tamu": 45,
+ "outdoor": 6,
+ "bar": 16,
+ "vanity": 2,
+ "total": 227,
+ "images": 767
 }

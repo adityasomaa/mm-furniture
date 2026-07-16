@@ -1,13 +1,24 @@
 import { notFound } from 'next/navigation';
 import { localePath, type Locale } from '@/lib/site';
 import { posts, postBySlug, formatDate } from '@/lib/posts';
-import { photosFor } from '@/lib/photos';
+import { productBySlug } from '@/lib/catalog';
 import { Section, Kicker } from '@/components/Shell';
 import { CatalogImage } from '@/components/CatalogImage';
 import { TransitionLink } from '@/components/transition/TransitionLink';
 import { EnquireButton } from '@/components/EnquireButton';
 
-const coverPhoto = (cat: string, index: number) => photosFor(cat)[index] ?? photosFor(cat)[0];
+/** Covers are the first plate of a real catalogue product, named by slug in posts.ts. */
+/**
+ * Covers are the first plate of a real catalogue product, named by slug in posts.ts.
+ *
+ * They render contained on white, not cropped to fill. The plates are keyed cutouts with
+ * a transparent surround, so `object-cover` would crop into the furniture itself and
+ * leave the piece running off the edge of the card.
+ */
+const coverPhoto = (slug: string) => productBySlug(slug)?.shots[0];
+
+const COVER_IMG =
+  'object-contain p-6 transition-transform duration-700 ease-[cubic-bezier(0.165,0.84,0.44,1)] group-hover:scale-[1.04]';
 
 export function BlogIndexPage({ locale }: { locale: Locale }) {
   const t =
@@ -16,6 +27,7 @@ export function BlogIndexPage({ locale }: { locale: Locale }) {
       : { title: 'Notes from the workshop', lede: 'The things we get asked most, answered at more length than fits in a WhatsApp reply.', read: 'min read' };
 
   const [lead, ...rest] = posts;
+  const leadCover = coverPhoto(lead.cover);
 
   return (
     <>
@@ -31,14 +43,16 @@ export function BlogIndexPage({ locale }: { locale: Locale }) {
           href={localePath(locale, `blog/${lead.slug}`)}
           className="group grid gap-6 overflow-hidden rounded-2xl border border-linen bg-shell transition-all duration-500 hover:border-clay/40 hover:shadow-[0_24px_60px_-30px_rgba(92,58,49,0.45)] md:grid-cols-2"
         >
-          <div className="relative aspect-[4/3] overflow-hidden bg-paper md:aspect-auto md:h-full">
-            <CatalogImage
-              photo={coverPhoto(lead.cover.cat, lead.cover.index)}
-              alt=""
-              sizes="(max-width: 768px) 100vw, 50vw"
-              priority
-              className="object-cover transition-transform duration-700 ease-[cubic-bezier(0.165,0.84,0.44,1)] group-hover:scale-[1.04]"
-            />
+          <div className="relative aspect-[4/3] overflow-hidden bg-white md:aspect-auto md:h-full">
+            {leadCover && (
+              <CatalogImage
+                shot={leadCover}
+                alt=""
+                sizes="(max-width: 768px) 100vw, 50vw"
+                priority
+                className={COVER_IMG}
+              />
+            )}
           </div>
           <div className="flex flex-col justify-center p-7 sm:p-10">
             <p className="tag text-clay">
@@ -62,13 +76,15 @@ export function BlogIndexPage({ locale }: { locale: Locale }) {
               href={localePath(locale, `blog/${p.slug}`)}
               className="group overflow-hidden rounded-2xl border border-linen bg-shell transition-all duration-500 hover:border-clay/40 hover:shadow-[0_24px_60px_-30px_rgba(92,58,49,0.45)]"
             >
-              <div className="relative aspect-[16/10] overflow-hidden bg-paper">
-                <CatalogImage
-                  photo={coverPhoto(p.cover.cat, p.cover.index)}
-                  alt=""
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                  className="object-cover transition-transform duration-700 ease-[cubic-bezier(0.165,0.84,0.44,1)] group-hover:scale-[1.04]"
-                />
+              <div className="relative aspect-[16/10] overflow-hidden bg-white">
+                {coverPhoto(p.cover) && (
+                  <CatalogImage
+                    shot={coverPhoto(p.cover)!}
+                    alt=""
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    className={COVER_IMG}
+                  />
+                )}
               </div>
               <div className="p-7">
                 <p className="tag text-clay">
@@ -88,6 +104,7 @@ export function BlogIndexPage({ locale }: { locale: Locale }) {
 export function BlogPostPage({ locale, slug }: { locale: Locale; slug: string }) {
   const post = postBySlug(slug);
   if (!post) notFound();
+  const cover = coverPhoto(post.cover);
 
   const t =
     locale === 'id'
@@ -122,14 +139,10 @@ export function BlogPostPage({ locale, slug }: { locale: Locale; slug: string })
       </Section>
 
       <Section tone="paper" className="!pt-10">
-        <div className="relative aspect-[16/8] w-full overflow-hidden rounded-2xl bg-shell">
-          <CatalogImage
-            photo={coverPhoto(post.cover.cat, post.cover.index)}
-            alt=""
-            sizes="100vw"
-            priority
-            className="object-cover"
-          />
+        <div className="relative aspect-[16/8] w-full overflow-hidden rounded-2xl bg-white">
+          {cover && (
+            <CatalogImage shot={cover} alt="" sizes="100vw" priority className="object-contain p-8" />
+          )}
         </div>
 
         <article className="prose-body mx-auto mt-14">

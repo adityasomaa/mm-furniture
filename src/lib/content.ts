@@ -31,8 +31,8 @@ export const ui = {
   close: { id: 'Tutup', en: 'Close' },
   whatsapp: { id: 'Hubungi via WhatsApp', en: 'Chat on WhatsApp' },
   viewCatalog: { id: 'Lihat katalog', en: 'View the catalogue' },
-  photoCount: { id: 'foto', en: 'photos' },
-  allCategories: { id: 'Semua kategori', en: 'All categories' },
+  productCount: { id: 'produk', en: 'products' },
+  rooms: { id: 'Semua ruangan', en: 'All rooms' },
   backToCatalog: { id: 'Kembali ke katalog', en: 'Back to the catalogue' },
   home: { id: 'Beranda', en: 'Home' },
   languageLabel: { id: 'Bahasa', en: 'Language' },
@@ -82,10 +82,10 @@ export const home = {
   },
 
   catalogKicker: { id: 'Katalog', en: 'Catalogue' },
-  catalogTitle: { id: 'Tujuh kategori, satu workshop yang sama.', en: 'Seven categories. All out of the same workshop.' },
+  catalogTitle: { id: 'Telusuri berdasarkan ruangan.', en: 'Browse it by the room it goes in.' },
   catalogBody: {
-    id: 'Semua foto berikut adalah produk yang benar-benar kami kerjakan, bukan render. Bila ada yang menarik perhatian Anda, kirimkan fotonya melalui WhatsApp dan kami akan membalas dengan ukuran serta harganya.',
-    en: 'The photographs below are of pieces we actually built, not renders. If something fits, send us the photo on WhatsApp and we will come back with sizes and a price.',
+    id: 'Setiap produk di katalog ini benar-benar kami kerjakan, lengkap dengan nama, bahan, dan ukurannya. Bukan render, bukan foto stok. Ukuran dan finishing masih bisa disesuaikan.',
+    en: 'Every piece in the catalogue is one we actually build, listed with its name, its material and its real dimensions. No renders, no stock photography. Sizes and finishes can still change.',
   },
 
   servicesKicker: { id: 'Interior', en: 'Interior' },
@@ -158,25 +158,71 @@ export const about = {
 
 export const catalog = {
   metaTitle: {
-    id: 'Katalog Furnitur — Sofa, Kursi, Meja, Tempat Tidur, Almari | MM Furniture Bali',
-    en: 'Furniture Catalogue — Sofas, Chairs, Tables, Beds, Storage | MM Furniture Bali',
+    id: 'Katalog Furnitur — Ruang Tamu, Ruang Makan, Kamar Tidur, Bar, Outdoor | MM Furniture Bali',
+    en: 'Furniture Catalogue — Living, Dining, Bedroom, Bar, Outdoor | MM Furniture Bali',
   },
   metaDescription: {
-    id: 'Katalog furnitur MM Furniture Globalindo: sofa, kursi, meja, set meja, desk, tempat tidur, rak, dan almari. Foto asli dari workshop kami di Denpasar, Bali. Melayani pesanan custom.',
-    en: 'The MM Furniture Globalindo catalogue: sofas, chairs, tables, table sets, desks, beds, shelving and storage. Real photographs from our Denpasar workshop in Bali. Custom orders welcome.',
+    id: 'Katalog MM Furniture Globalindo: sofa, kursi, meja makan, dipan, almari, kursi bar, dan furnitur outdoor. Setiap produk dilengkapi bahan dan ukuran aslinya. Dikerjakan di workshop kami di Denpasar, Bali. Melayani pesanan custom.',
+    en: 'The MM Furniture Globalindo catalogue: sofas, chairs, dining tables, beds, wardrobes, bar stools and outdoor furniture. Every piece listed with its real material and dimensions. Built in our Denpasar workshop in Bali. Custom orders welcome.',
   },
   title: { id: 'Katalog', en: 'Catalogue' },
   lede: {
-    id: 'Semua foto di halaman ini adalah produk yang keluar dari workshop kami. Tidak ada render, tidak ada foto stok. Ukuran, bahan, dan finishing dapat disesuaikan dengan kebutuhan Anda.',
-    en: 'Every photograph here is a piece that came out of our workshop. No renders, no stock photography. Sizes, materials and finishes can all change to suit the job.',
+    id: 'Semua yang ada di halaman ini keluar dari workshop kami di Denpasar Barat. Ukuran yang tertulis adalah ukuran yang kami kerjakan, dan semuanya masih bisa disesuaikan dengan ruangan Anda.',
+    en: 'Everything on these pages comes out of our workshop in Denpasar Barat. The dimensions listed are the ones we build to, and all of them can still be cut to fit your room.',
   },
-  emptyCategory: {
-    id: 'Foto untuk kategori ini sedang kami siapkan. Silakan hubungi kami melalui WhatsApp, dan kami akan mengirimkan koleksi terbaru.',
-    en: 'Photographs for this category are being prepared. Message us on WhatsApp and we will send the latest.',
+
+  // Room browsing.
+  roomsKicker: { id: 'Berdasarkan ruangan', en: 'By room' },
+  roomsTitle: { id: 'Mulai dari ruangan yang sedang Anda isi.', en: 'Start with the room you are filling.' },
+  // Materials story, in the Warisan register but counted from the real data.
+  materialsKicker: { id: 'Bahan', en: 'Materials' },
+  materialsTitle: { id: 'Bahannya sedikit, dan kami tahu betul perilakunya.', en: 'A short list of materials, and we know how each one behaves.' },
+  materialsBody: {
+    id: 'Angka di bawah ini dihitung langsung dari katalog, bukan klaim pemasaran. Sebagian besar produk berbahan kayu jati, sisanya memakai rotan, anyaman tali, atau kombinasi keduanya.',
+    en: 'The numbers below are counted straight off the catalogue, not a marketing claim. Most of it is teak; the rest brings in rattan, woven cord, or a combination of the two.',
   },
-  categoryLede: {
-    id: 'Foto asli dari workshop dan showroom kami. Ada yang cocok? Kirimkan nomor fotonya melalui WhatsApp.',
-    en: 'Real photographs from our workshop and showroom. Something fit? Send us the photo number on WhatsApp.',
+  materialUnit: { id: 'produk', en: 'pieces' },
+
+  // Every product page says this, because the sheet has no prices in it at all.
+  priceNote: {
+    id: 'Kami tidak mencantumkan harga di situs ini. Harga bergantung pada ukuran akhir, pilihan bahan, finishing, dan jumlah pesanan, sehingga satu angka di halaman ini hampir pasti keliru. Kirimkan produk yang Anda maksud melalui WhatsApp dan kami akan membalas dengan angka yang benar.',
+    en: 'We do not list prices on this site. The price moves with the final size, the material, the finish and the quantity, so a single number here would almost certainly be the wrong one. Send us the piece on WhatsApp and we will come back with the real figure.',
+  },
+  customTitle: { id: 'Bisa dibuat menyesuaikan ukuran Anda', en: 'This can be made to your dimensions' },
+  customBody: {
+    id: 'Ukuran yang tertulis adalah ukuran standar kami. Panjang, lebar, tinggi, jenis kayu, warna finishing, dan bahan dudukan semuanya dapat diubah.',
+    en: 'The dimensions listed are our standard. Length, width, height, timber, finish colour and seat material can all change.',
+  },
+  galleryAngles: { id: 'Sudut pandang', en: 'Angles' },
+  zoom: { id: 'Perbesar', en: 'Zoom' },
+  prev: { id: 'Sebelumnya', en: 'Previous' },
+  next: { id: 'Berikutnya', en: 'Next' },
+  angle: { id: 'Tampak', en: 'View' },
+  photoAlt: {
+    id: (name: string) => `${name} — dikerjakan oleh MM Furniture Globalindo, Bali`,
+    en: (name: string) => `${name}, built by MM Furniture Globalindo in Bali`,
+  },
+  /** Alt text for one angle of a multi-shot piece. */
+  photoAltView: {
+    id: (name: string, i: number) => `${name} — dikerjakan oleh MM Furniture Globalindo, Bali, tampak ${i}`,
+    en: (name: string, i: number) => `${name}, built by MM Furniture Globalindo in Bali, view ${i}`,
+  },
+
+  // Product page.
+  specMaterial: { id: 'Bahan', en: 'Material' },
+  specDimensions: { id: 'Ukuran', en: 'Dimensions' },
+  specDimNote: { id: 'Panjang × Lebar × Tinggi', en: 'Length × Width × Height' },
+  specNoDim: { id: 'Belum tercatat. Silakan tanyakan melalui WhatsApp.', en: 'Not recorded yet. Ask us on WhatsApp.' },
+  specCode: { id: 'Kode', en: 'Code' },
+  related: { id: 'Produk lain di ruangan ini', en: 'More in this room' },
+  backToRoom: { id: 'Lihat ruangan ini', en: 'Back to this room' },
+
+  // Room page.
+  otherRooms: { id: 'Ruangan lain', en: 'Other rooms' },
+  roomCta: { id: 'Belum menemukan yang pas?', en: 'Nothing quite right?' },
+  roomCtaBody: {
+    id: 'Semua produk di sini dapat dibuat ulang dengan ukuran dan bahan yang Anda tentukan.',
+    en: 'Everything here can be rebuilt to the size and the material you specify.',
   },
 } as const;
 
@@ -209,8 +255,8 @@ export const faq: { q: L; a: L }[] = [
   {
     q: { id: 'Apa itu MM Furniture Globalindo?', en: 'What is MM Furniture Globalindo?' },
     a: {
-      id: 'MM Furniture Globalindo adalah produsen furnitur sekaligus penyedia solusi interior yang berbasis di Bali, Indonesia. Perusahaan ini mengerjakan sofa, kursi, meja, set meja, desk, tempat tidur, rak, dan almari di workshop miliknya sendiri di Denpasar Barat, serta menangani desain interior, pengadaan barang dan jasa, dan fit-out ruang kantor maupun komersial. Showroom-nya berada di Jl. Sunset Road 71, Kuta, Badung, Bali.',
-      en: 'MM Furniture Globalindo is a furniture manufacturer and interior solutions provider based in Bali, Indonesia. It builds sofas, chairs, tables, table sets, desks, beds, shelving and storage in its own workshop in Denpasar Barat, and handles interior design, goods and service procurement, and office and commercial fit-out. Its showroom is at Jl. Sunset Road 71, Kuta, Badung, Bali.',
+      id: 'MM Furniture Globalindo adalah produsen furnitur sekaligus penyedia solusi interior yang berbasis di Bali, Indonesia. Perusahaan ini mengerjakan sofa, meja makan, kursi makan, dipan, lemari, kursi bar, dan furnitur outdoor di workshop miliknya sendiri di Denpasar Barat, serta menangani desain interior, pengadaan barang dan jasa, dan fit-out ruang kantor maupun komersial. Showroom-nya berada di Jl. Sunset Road 71, Kuta, Badung, Bali.',
+      en: 'MM Furniture Globalindo is a furniture manufacturer and interior solutions provider based in Bali, Indonesia. It builds sofas, dining tables, dining chairs, beds, wardrobes, bar stools and outdoor furniture in its own workshop in Denpasar Barat, and handles interior design, goods and service procurement, and office and commercial fit-out. Its showroom is at Jl. Sunset Road 71, Kuta, Badung, Bali.',
     },
   },
   {
@@ -223,8 +269,17 @@ export const faq: { q: L; a: L }[] = [
   {
     q: { id: 'Furnitur apa saja yang dibuat MM Furniture?', en: 'What furniture does MM Furniture make?' },
     a: {
-      id: 'MM Furniture Globalindo membuat tujuh kategori furnitur: sofa, kursi, meja, set meja, desk, tempat tidur, serta rak dan almari. Semuanya dikerjakan di workshop milik sendiri di Denpasar Barat, Bali, untuk kebutuhan rumah, vila, kantor, dan proyek komersial.',
-      en: 'MM Furniture Globalindo makes seven categories of furniture: sofas, chairs, tables, table sets, desks, beds, and shelving and storage. All of it is built in its own workshop in Denpasar Barat, Bali, for homes, villas, offices and commercial projects.',
+      id: 'Katalog MM Furniture Globalindo berisi 227 produk yang dikelompokkan per ruangan: ruang tamu, ruang makan, kamar tidur, bar, outdoor, dan vanity. Isinya mulai dari sofa, kursi makan, meja makan, dipan, nakas, lemari, kursi bar, hingga sunbed. Bahan utamanya kayu jati, dipadukan dengan rotan, anyaman tali, besi, atau kaca sesuai produknya. Semuanya dikerjakan di workshop milik sendiri di Denpasar Barat, Bali.',
+      en: 'The MM Furniture Globalindo catalogue holds 227 products, grouped by the room they go in: living room, dining room, bedroom, bar, outdoor and vanity. It runs from sofas, dining chairs and dining tables through beds, bedside tables, wardrobes, bar stools and sunbeds. Most of it is teak, combined with rattan, woven cord, iron or glass depending on the piece. All of it is built in its own workshop in Denpasar Barat, Bali.',
+    },
+  },
+  {
+    // The catalogue lists a size and a material for every piece and a price for none, so
+    // this is now the obvious next question. Better answered plainly than left hanging.
+    q: { id: 'Berapa harga produk MM Furniture?', en: 'How much does MM Furniture cost?' },
+    a: {
+      id: 'Harga tidak kami cantumkan di situs ini, karena angkanya bergantung pada ukuran akhir, pilihan bahan, finishing, dan jumlah pesanan. Ukuran yang tertera di katalog adalah ukuran standar kami, dan sebagian besar pesanan datang dengan ukuran yang berbeda. Kirimkan produk yang Anda maksud melalui WhatsApp ke +62 878-6165-4856, dan kami balas dengan harga untuk spesifikasi Anda.',
+      en: 'We do not list prices on this site, because the figure moves with the final size, the material, the finish and the quantity. The dimensions in the catalogue are our standard, and most orders come in at a different size. Send us the piece on WhatsApp at +62 878-6165-4856 and we will come back with a price for your specification.',
     },
   },
   {

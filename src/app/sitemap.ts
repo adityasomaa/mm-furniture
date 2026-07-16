@@ -1,5 +1,6 @@
 import type { MetadataRoute } from 'next';
-import { SITE_URL, categories, localePath } from '@/lib/site';
+import { SITE_URL, localePath } from '@/lib/site';
+import { ROOMS, products } from '@/lib/catalog';
 import { posts } from '@/lib/posts';
 
 /**
@@ -14,10 +15,17 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const routes: { path: string; priority: number; freq: MetadataRoute.Sitemap[number]['changeFrequency'] }[] = [
     { path: '', priority: 1.0, freq: 'monthly' },
     { path: 'catalog', priority: 0.9, freq: 'monthly' },
-    ...categories.map((c) => ({
-      path: `catalog/${c.slug}`,
+    ...ROOMS.map((room) => ({
+      path: `catalog/${room}`,
       priority: 0.8,
       freq: 'monthly' as const,
+    })),
+    // 227 product pages. They are the pages that can actually rank for a query like
+    // "meja makan jati Bali", so they belong here even though the file gets long.
+    ...products.map((p) => ({
+      path: `catalog/${p.room}/${p.slug}`,
+      priority: 0.7,
+      freq: 'yearly' as const,
     })),
     { path: 'blog', priority: 0.7, freq: 'monthly' },
     ...posts.map((p) => ({ path: `blog/${p.slug}`, priority: 0.6, freq: 'yearly' as const })),

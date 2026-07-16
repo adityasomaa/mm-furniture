@@ -1,12 +1,12 @@
 import { company, locations, type Locale } from '@/lib/site';
 import { about } from '@/lib/content';
-import { coverFor, totalPhotos } from '@/lib/photos';
+import { roomCover, totalProducts, rooms } from '@/lib/catalog';
 import { Section, Kicker } from '@/components/Shell';
 import { Faq } from '@/components/Faq';
 import { CatalogImage } from '@/components/CatalogImage';
 
 export function AboutPage({ locale }: { locale: Locale }) {
-  const shot = coverFor('meja') ?? coverFor('kursi');
+  const shot = roomCover('ruang-makan') ?? roomCover('ruang-tamu');
 
   return (
     <>
@@ -22,11 +22,11 @@ export function AboutPage({ locale }: { locale: Locale }) {
         <div className="relative mt-16 aspect-[16/7] w-full overflow-hidden rounded-2xl bg-shell">
           {shot && (
             <CatalogImage
-              photo={shot}
+              shot={shot}
               alt={
                 locale === 'id'
-                  ? 'Meja kayu hasil pengerjaan workshop MM Furniture di Denpasar, Bali'
-                  : 'A timber table built in the MM Furniture workshop in Denpasar, Bali'
+                  ? 'Meja makan kayu jati hasil pengerjaan workshop MM Furniture di Denpasar, Bali'
+                  : 'A teak dining table built in the MM Furniture workshop in Denpasar, Bali'
               }
               sizes="100vw"
               priority
@@ -60,14 +60,14 @@ export function AboutPage({ locale }: { locale: Locale }) {
         <dl className="grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
           {[
             {
-              k: locale === 'id' ? 'Kategori furnitur' : 'Furniture categories',
-              v: '7',
-              d: locale === 'id' ? 'Sofa sampai almari' : 'Sofas through storage',
+              k: locale === 'id' ? 'Produk di katalog' : 'Pieces in the catalogue',
+              v: String(totalProducts()),
+              d: locale === 'id' ? 'Lengkap dengan bahan dan ukurannya' : 'Each with its material and size',
             },
             {
-              k: locale === 'id' ? 'Foto katalog' : 'Catalogue photographs',
-              v: String(totalPhotos()),
-              d: locale === 'id' ? 'Barang asli, bukan render' : 'Real pieces, not renders',
+              k: locale === 'id' ? 'Ruangan' : 'Rooms',
+              v: String(rooms.length),
+              d: locale === 'id' ? 'Ruang tamu sampai outdoor' : 'Living room through outdoor',
             },
             {
               k: locale === 'id' ? 'Lokasi' : 'Locations',

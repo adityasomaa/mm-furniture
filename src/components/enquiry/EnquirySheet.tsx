@@ -1,7 +1,8 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { categories, company, waLink, type Locale } from '@/lib/site';
+import { company, waLink, type Locale } from '@/lib/site';
+import { rooms } from '@/lib/rooms';
 import { Select } from '../ui/Select';
 import { Monogram } from '../Wordmark';
 
@@ -22,10 +23,13 @@ export function EnquirySheet({
   locale,
   isOpen,
   onClose,
+  subject,
 }: {
   locale: Locale;
   isOpen: boolean;
   onClose: () => void;
+  /** Set when the sheet was opened from a product page. */
+  subject?: { name: string; code?: string };
 }) {
   const [category, setCategory] = useState('');
   const [kind, setKind] = useState('');
@@ -41,8 +45,8 @@ export function EnquirySheet({
           lede: 'Isi seperlunya saja. Kami akan membalas melalui WhatsApp dengan perkiraan ukuran, bahan, dan harga.',
           name: 'Nama',
           namePh: 'Nama Anda',
-          category: 'Kategori',
-          categoryPh: 'Pilih kategori',
+          category: 'Ruangan',
+          categoryPh: 'Pilih ruangan',
           kind: 'Jenis kebutuhan',
           kindPh: 'Pilih jenis',
           detail: 'Detail',
@@ -56,8 +60,8 @@ export function EnquirySheet({
           lede: 'Fill in what you can. We reply on WhatsApp with sizes, materials and a price.',
           name: 'Name',
           namePh: 'Your name',
-          category: 'Category',
-          categoryPh: 'Choose a category',
+          category: 'Room',
+          categoryPh: 'Choose a room',
           kind: 'Type of work',
           kindPh: 'Choose a type',
           detail: 'Details',
@@ -82,7 +86,7 @@ export function EnquirySheet({
           { value: 'export', label: 'Bulk purchase / export' },
         ];
 
-  const catOptions = categories.map((c) => ({ value: c.slug, label: c[locale] }));
+  const catOptions = rooms.map((r) => ({ value: r.slug, label: r.label[locale] }));
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => e.key === 'Escape' && onClose();
@@ -101,20 +105,23 @@ export function EnquirySheet({
   const compose = () => {
     const catLabel = catOptions.find((c) => c.value === category)?.label;
     const kindLabel = kinds.find((k) => k.value === kind)?.label;
+    const piece = subject && (subject.code ? `${subject.name} (${subject.code})` : subject.name);
     const lines =
       locale === 'id'
         ? [
             `Halo MM Furniture, saya ${name || '(nama belum diisi)'}.`,
+            piece && `Produk: ${piece}`,
             kindLabel && `Kebutuhan: ${kindLabel}`,
-            catLabel && `Kategori: ${catLabel}`,
+            catLabel && `Ruangan: ${catLabel}`,
             detail && `Detail: ${detail}`,
             '',
             'Boleh saya minta informasi ukuran, bahan, dan harganya?',
           ]
         : [
             `Hello MM Furniture, this is ${name || '(name not given)'}.`,
+            piece && `Piece: ${piece}`,
             kindLabel && `Looking for: ${kindLabel}`,
-            catLabel && `Category: ${catLabel}`,
+            catLabel && `Room: ${catLabel}`,
             detail && `Details: ${detail}`,
             '',
             'Could you send sizes, materials and a price?',

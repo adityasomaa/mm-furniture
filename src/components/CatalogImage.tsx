@@ -1,21 +1,21 @@
-import type { Photo } from '@/lib/photos';
+import type { Shot } from '@/lib/catalog';
 
 /**
  * Serves the build-time derivative ladder directly.
  *
- * Deliberately not next/image: every photo is static and known at build time, so a
- * runtime optimizer would spend a Vercel transformation to recompute a result we
- * already have on disk. This ships plain <picture> with AVIF first, WebP fallback, and
- * a real srcset, which the browser resolves against `sizes` without any JavaScript.
+ * Deliberately not next/image: every plate is static and known at build time, so a
+ * runtime optimiser would spend a Vercel transformation to recompute a result we already
+ * have on disk. This ships plain <picture> with AVIF first, WebP fallback, and a real
+ * srcset, which the browser resolves against `sizes` without any JavaScript.
  *
- * `showBlur` is off by default. The plates carry alpha now (the studio backdrop is keyed
- * out at build time), so a blur placeholder painted behind one would stay visible
- * through every transparent region instead of being covered on decode: you would see a
- * smeared ghost around the furniture forever. The intrinsic width/height still reserve
- * the space, so nothing shifts. Only pass `showBlur` for an image known to be opaque.
+ * `showBlur` is off by default. The plates carry alpha (the studio backdrop is keyed out
+ * at build time), so a blur placeholder painted behind one would stay visible through
+ * every transparent region instead of being covered on decode: a smeared ghost around
+ * the furniture, forever. The intrinsic width/height still reserve the space, so nothing
+ * shifts. Only pass `showBlur` for an image known to be opaque.
  */
 export function CatalogImage({
-  photo,
+  shot,
   alt,
   sizes,
   priority = false,
@@ -23,7 +23,7 @@ export function CatalogImage({
   fill = true,
   showBlur = false,
 }: {
-  photo: Photo;
+  shot: Shot;
   alt: string;
   sizes: string;
   priority?: boolean;
@@ -31,9 +31,9 @@ export function CatalogImage({
   fill?: boolean;
   showBlur?: boolean;
 }) {
-  const widths = photo.widths?.length ? photo.widths : [photo.w];
+  const widths = shot.widths?.length ? shot.widths : [shot.w];
   const srcset = (ext: 'avif' | 'webp') =>
-    widths.map((w) => `/catalog/${photo.slug}-${w}.${ext} ${w}w`).join(', ');
+    widths.map((w) => `/catalog/${shot.slug}-${w}.${ext} ${w}w`).join(', ');
 
   // Mid rung as the <img> src: the fallback for anything that ignores srcset.
   const fallbackWidth = widths[Math.min(1, widths.length - 1)];
@@ -43,10 +43,10 @@ export function CatalogImage({
       <source type="image/avif" srcSet={srcset('avif')} sizes={sizes} />
       <source type="image/webp" srcSet={srcset('webp')} sizes={sizes} />
       <img
-        src={`/catalog/${photo.slug}-${fallbackWidth}.webp`}
+        src={`/catalog/${shot.slug}-${fallbackWidth}.webp`}
         alt={alt}
-        width={photo.w}
-        height={photo.h}
+        width={shot.w}
+        height={shot.h}
         loading={priority ? 'eager' : 'lazy'}
         decoding={priority ? 'sync' : 'async'}
         fetchPriority={priority ? 'high' : 'auto'}
@@ -54,7 +54,7 @@ export function CatalogImage({
         style={
           showBlur
             ? {
-                backgroundImage: `url(${photo.blur})`,
+                backgroundImage: `url(${shot.blur})`,
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
               }

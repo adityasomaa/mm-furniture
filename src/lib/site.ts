@@ -32,6 +32,19 @@ export const company = {
   short: 'MM Furniture',
   legalName: 'MM Furniture Globalindo',
   tagline: { id: 'Kualitas Ekspor, Harga Bersahabat', en: 'Export Quality, Affordable Price' },
+  /**
+   * The one-paragraph description of the business, used by the JSON-LD organisation
+   * node, llms.txt and the FAQ. Stated once so a human reader, Google and an answer
+   * engine cannot be told three different things.
+   *
+   * The product list is drawn from the owner's actual catalogue rather than from a
+   * taxonomy: every family named here (dining tables, beds, wardrobes, bar stools,
+   * sunbeds) has real pieces behind it in `products.json`.
+   */
+  description: {
+    id: 'Produsen furnitur dan kontraktor interior yang berbasis di Bali, Indonesia. MM Furniture Globalindo mengerjakan sofa, meja makan, kursi makan, dipan, nakas, lemari, buffet, kursi bar, dan furnitur outdoor di workshop miliknya sendiri di Denpasar Barat, serta menangani desain interior, pengadaan barang dan jasa, dan fit-out ruang kantor maupun komersial.',
+    en: 'Furniture manufacturer and interior fit-out contractor based in Bali, Indonesia. MM Furniture Globalindo builds sofas, dining tables, dining chairs, beds, bedside tables, wardrobes, buffets, bar stools and outdoor furniture in its own workshop in Denpasar Barat, and delivers interior design, goods and service procurement, and office and commercial fit-out.',
+  },
   email: 'info@mmfurniture.com',
   emailAlt: 'mmfurniture71@gmail.com',
   phones: [
@@ -72,20 +85,14 @@ export const locations = [
   },
 ] as const;
 
-/** Ordered as the legacy navigation ordered them. Slugs match legacy URLs exactly. */
-export const categories = [
-  { slug: 'sofa', id: 'Sofa', en: 'Sofas' },
-  { slug: 'kursi', id: 'Kursi', en: 'Chairs' },
-  { slug: 'meja', id: 'Meja', en: 'Tables' },
-  { slug: 'set-meja', id: 'Set Meja', en: 'Table Sets' },
-  { slug: 'desk', id: 'Desk', en: 'Desks' },
-  { slug: 'bed', id: 'Bed', en: 'Beds' },
-  { slug: 'almari', id: 'Rak & Almari', en: 'Shelving & Storage' },
-] as const;
-
-export type CategorySlug = (typeof categories)[number]['slug'];
-
-export const categoryBySlug = (slug: string) => categories.find((c) => c.slug === slug);
+/**
+ * The catalogue taxonomy moved to `@/lib/catalog`.
+ *
+ * This module used to own seven type-based categories (sofa, kursi, meja, ...) invented
+ * to describe 240 anonymous scraped photos. The owner then supplied a real product
+ * database whose own Kategori column is spatial, so the site browses by room and the
+ * taxonomy is derived from their data rather than declared here.
+ */
 
 export const waLink = (waNumber: string, message: string) =>
   `https://wa.me/${waNumber}?text=${encodeURIComponent(message)}`;

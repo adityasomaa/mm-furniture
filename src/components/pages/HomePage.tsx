@@ -1,31 +1,17 @@
 import { company, locations, waLink, localePath, type Locale } from '@/lib/site';
 import { home, ui } from '@/lib/content';
-import { photosFor, totalPhotos } from '@/lib/photos';
+import { heroShots, totalProducts } from '@/lib/catalog';
 import { Section, Kicker } from '@/components/Shell';
 import { Faq } from '@/components/Faq';
 import { Monogram } from '@/components/Wordmark';
-import { CategoryTiles } from '@/components/CategoryTiles';
+import { RoomTiles } from '@/components/RoomTiles';
 import { HeroStage } from '@/components/HeroStage';
 import { TransitionLink } from '@/components/transition/TransitionLink';
 import { EnquireButton } from '@/components/EnquireButton';
 import { Marquee } from '@/components/Marquee';
 
 export function HomePage({ locale }: { locale: Locale }) {
-  // One decisive piece per category, so the stage shows range rather than five sofas.
-  //
-  // These indices are not arbitrary. The backdrop key (scripts/lib-cutout.mjs) cannot
-  // reach backdrop that sits in shadow inside a tight gap, so a few plates keep small
-  // pale patches where a chair frame or a table apron encloses one. Harmless in a
-  // catalogue tile; not harmless on the hero. These were picked by scoring every
-  // candidate for leftover near-white and taking the cleanest: the previous table pick
-  // measured 12% leftover, this one measures 0.3%.
-  const stage = [
-    photosFor('sofa')[1],
-    photosFor('kursi')[13],
-    photosFor('meja')[2],
-    photosFor('almari')[3],
-    photosFor('bed')[2],
-  ].filter(Boolean);
+  const stage = heroShots();
 
   const wa = waLink(
     company.phones[0].wa,
@@ -55,7 +41,7 @@ export function HomePage({ locale }: { locale: Locale }) {
                 href={localePath(locale, 'catalog')}
                 className="tag rounded-full border border-linen px-7 py-4 text-clay transition-all duration-300 hover:border-brand hover:text-brand"
               >
-                {ui.viewCatalog[locale]} ({totalPhotos()})
+                {ui.viewCatalog[locale]} ({totalProducts()})
               </TransitionLink>
             </div>
           </div>
@@ -93,7 +79,7 @@ export function HomePage({ locale }: { locale: Locale }) {
         </div>
 
         <div className="mt-14">
-          <CategoryTiles locale={locale} />
+          <RoomTiles locale={locale} />
         </div>
       </Section>
 
