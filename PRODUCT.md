@@ -37,7 +37,7 @@ the Indonesian surface is a retail surface. Same catalog, different intent.
 - **Showroom & office:** Jl. Sunset Road 71, Kuta, Badung, Bali, Indonesia
 - **Workshop:** Jl. Pulau Ayu Dalam 15, Denpasar Barat, Denpasar, Bali, Indonesia
 - **Email:** info@mmfurniture.com, mmfurniture71@gmail.com
-- **Phone / WhatsApp:** +62 878-6165-4856, +62 878-6134-0445
+- **Phone / WhatsApp:** +62 818-0517-1585, +62 878-6134-0445
 - **Instagram:** @mmfurniture71 · **Facebook:** mmfurnitureindonesia
 - **Services:** interior design, goods & service procurement, office/commercial fit-out
 - **Custom orders:** accepted

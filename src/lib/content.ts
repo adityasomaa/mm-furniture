@@ -242,8 +242,8 @@ export const contact = {
     en: 'Contact MM Furniture Globalindo — Kuta Showroom & Denpasar Workshop',
   },
   metaDescription: {
-    id: 'Hubungi MM Furniture Globalindo. WhatsApp +62 878-6165-4856. Showroom di Jl. Sunset Road 71, Kuta, Badung. Workshop di Jl. Pulau Ayu Dalam 15, Denpasar Barat, Bali.',
-    en: 'Contact MM Furniture Globalindo. WhatsApp +62 878-6165-4856. Showroom at Jl. Sunset Road 71, Kuta, Badung. Workshop at Jl. Pulau Ayu Dalam 15, Denpasar Barat, Bali.',
+    id: 'Hubungi MM Furniture Globalindo. WhatsApp +62 818-0517-1585. Showroom di Jl. Sunset Road 71, Kuta, Badung. Workshop di Jl. Pulau Ayu Dalam 15, Denpasar Barat, Bali.',
+    en: 'Contact MM Furniture Globalindo. WhatsApp +62 818-0517-1585. Showroom at Jl. Sunset Road 71, Kuta, Badung. Workshop at Jl. Pulau Ayu Dalam 15, Denpasar Barat, Bali.',
   },
   title: { id: 'Kontak', en: 'Contact' },
   lede: {
@@ -319,15 +319,15 @@ export const faq: { q: L; a: L }[] = [
     // this is now the obvious next question. Better answered plainly than left hanging.
     q: { id: 'Berapa harga produk MM Furniture?', en: 'How much does MM Furniture cost?' },
     a: {
-      id: 'Harga tidak kami cantumkan di situs ini, karena angkanya bergantung pada ukuran akhir, pilihan bahan, finishing, dan jumlah pesanan. Ukuran yang tertera di katalog adalah ukuran standar kami, dan sebagian besar pesanan datang dengan ukuran yang berbeda. Kirimkan produk yang Anda maksud melalui WhatsApp ke +62 878-6165-4856, dan kami balas dengan harga untuk spesifikasi Anda.',
-      en: 'We do not list prices on this site, because the figure moves with the final size, the material, the finish and the quantity. The dimensions in the catalogue are our standard, and most orders come in at a different size. Send us the piece on WhatsApp at +62 878-6165-4856 and we will come back with a price for your specification.',
+      id: 'Harga tidak kami cantumkan di situs ini, karena angkanya bergantung pada ukuran akhir, pilihan bahan, finishing, dan jumlah pesanan. Ukuran yang tertera di katalog adalah ukuran standar kami, dan sebagian besar pesanan datang dengan ukuran yang berbeda. Kirimkan produk yang Anda maksud melalui WhatsApp ke +62 818-0517-1585, dan kami balas dengan harga untuk spesifikasi Anda.',
+      en: 'We do not list prices on this site, because the figure moves with the final size, the material, the finish and the quantity. The dimensions in the catalogue are our standard, and most orders come in at a different size. Send us the piece on WhatsApp at +62 818-0517-1585 and we will come back with a price for your specification.',
     },
   },
   {
     q: { id: 'Apakah MM Furniture menerima pesanan custom?', en: 'Does MM Furniture take custom orders?' },
     a: {
-      id: 'Ya. MM Furniture Globalindo menerima pesanan custom. Ukuran, material, dan finishing dapat menyesuaikan gambar kerja, sketsa, atau contoh yang Anda kirimkan. Cara tercepat untuk memulai adalah mengirimkan foto atau ukuran melalui WhatsApp ke +62 878-6165-4856.',
-      en: 'Yes. MM Furniture Globalindo accepts custom orders. Sizes, materials and finishes can follow your drawings, a sketch, or a sample you send. The fastest way to start is to send a photo or the dimensions over WhatsApp to +62 878-6165-4856.',
+      id: 'Ya. MM Furniture Globalindo menerima pesanan custom. Ukuran, material, dan finishing dapat menyesuaikan gambar kerja, sketsa, atau contoh yang Anda kirimkan. Cara tercepat untuk memulai adalah mengirimkan foto atau ukuran melalui WhatsApp ke +62 818-0517-1585.',
+      en: 'Yes. MM Furniture Globalindo accepts custom orders. Sizes, materials and finishes can follow your drawings, a sketch, or a sample you send. The fastest way to start is to send a photo or the dimensions over WhatsApp to +62 818-0517-1585.',
     },
   },
   {
@@ -340,8 +340,8 @@ export const faq: { q: L; a: L }[] = [
   {
     q: { id: 'Bagaimana cara menghubungi MM Furniture?', en: 'How do I contact MM Furniture?' },
     a: {
-      id: 'Hubungi MM Furniture Globalindo melalui WhatsApp di +62 878-6165-4856 atau +62 878-6134-0445, atau melalui email ke info@mmfurniture.com. Anda juga dapat langsung mengunjungi showroom kami di Jl. Sunset Road 71, Kuta, Badung, Bali.',
-      en: 'Contact MM Furniture Globalindo on WhatsApp at +62 878-6165-4856 or +62 878-6134-0445, or by email at info@mmfurniture.com. You can also visit the showroom at Jl. Sunset Road 71, Kuta, Badung, Bali.',
+      id: 'Hubungi MM Furniture Globalindo melalui WhatsApp di +62 818-0517-1585 atau +62 878-6134-0445, atau melalui email ke info@mmfurniture.com. Anda juga dapat langsung mengunjungi showroom kami di Jl. Sunset Road 71, Kuta, Badung, Bali.',
+      en: 'Contact MM Furniture Globalindo on WhatsApp at +62 818-0517-1585 or +62 878-6134-0445, or by email at info@mmfurniture.com. You can also visit the showroom at Jl. Sunset Road 71, Kuta, Badung, Bali.',
     },
   },
 ];

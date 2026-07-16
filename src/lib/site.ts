@@ -48,7 +48,7 @@ export const company = {
   email: 'info@mmfurniture.com',
   emailAlt: 'mmfurniture71@gmail.com',
   phones: [
-    { label: '+62 878-6165-4856', e164: '+6287861654856', wa: '6287861654856' },
+    { label: '+62 818-0517-1585', e164: '+6281805171585', wa: '6281805171585' },
     { label: '+62 878-6134-0445', e164: '+6287861340445', wa: '6287861340445' },
   ],
   instagram: 'https://www.instagram.com/mmfurniture71/',
